@@ -1,4 +1,3 @@
-```yaml
 example_id: basic-reasoning-cycle.example
 protocol_ref: five-phase-reasoning-protocol-v0.1
 version: 0.1.0
@@ -172,4 +171,3 @@ validation_notes:
 
   expected_result: >
     A concise and structurally safe explanation of the protocol.
-```
