@@ -6,12 +6,15 @@ A structural protocol for dynamic, energy-aware, multi-agent reasoning based on 
 
 Draft specification.
 
+Current version: `v0.3.1`
+
 Current structure:
 
 * Core protocol: `v0.1`
 * Validation release: `v0.1.1`
 * Dynamic control metrics extension: `v0.2.0`
 * Yin-Yang Balancer extension: `v0.3.0`
+* Documentation and release positioning: `v0.3.1`
 
 This repository defines an early conceptual and structural protocol.
 
@@ -33,6 +36,16 @@ The purpose of this protocol is to describe a reasoning architecture that may su
 * background memory return
 * dynamic equilibrium control
 * constraint-aware balance adjustment
+
+The `v0.3.1` release does not introduce new protocol mechanics.
+
+It clarifies:
+
+* release positioning
+* claim boundaries
+* external communication style
+* relationship to existing reasoning-control concepts
+* appropriate interpretation of Yin-Yang and Five-Phase concepts
 
 ## Core Idea
 
@@ -83,12 +96,15 @@ With the `v0.3.0` extension, the protocol adds **Yin-Yang Balancer**:
 
 The v0.3.0 extension uses v0.2.0 dynamic control metrics as input signals for balancing reasoning flow.
 
+With the `v0.3.1` release, the repository adds documentation for release positioning and claim boundaries.
+
 In simple terms:
 
 ```text
 v0.1 = reasoning cycle
 v0.2 = runtime control metrics
 v0.3 = dynamic balance controller
+v0.3.1 = documentation and claim-boundary polish
 ```
 
 ## Why This Matters
@@ -757,6 +773,42 @@ The goal is not to continue reasoning endlessly.
 
 The goal is to retain only what can improve the next cycle.
 
+## Release Positioning and Claim Boundaries v0.3.1
+
+The `v0.3.1` release adds documentation that clarifies how the protocol should be understood and described externally.
+
+It is defined in:
+
+```text
+docs/release-positioning.md
+docs/claim-boundaries.md
+```
+
+These documents do not add new protocol mechanics.
+
+They clarify:
+
+* what the protocol is
+* what the protocol is not
+* how the release series should be interpreted
+* how the protocol relates to existing reasoning-control areas
+* which claims are appropriate
+* which claims should be avoided without empirical support
+
+The recommended external positioning is:
+
+```text
+This repository proposes a control-layer model that connects multi-agent
+orchestration, adaptive reasoning, early stopping, critique-based compression,
+and memory-aware routing through a Yin-Yang Five-Phase structure.
+```
+
+The recommended claim level is:
+
+```text
+This protocol proposes a structural reasoning-control model.
+```
+
 ## Protocol Layers
 
 This protocol can be understood through seven layers.
@@ -1128,7 +1180,9 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 │   ├── controlling-cycle-brake.md
 │   ├── relationship-to-multi-wing.md
 │   ├── energy-aware-reasoning-notes.md
-│   └── yin-yang-balancer.md
+│   ├── yin-yang-balancer.md
+│   ├── release-positioning.md
+│   └── claim-boundaries.md
 ├── scripts/
 │   └── validate_specs.py
 ├── .github/
@@ -1182,6 +1236,16 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 * `docs/yin-yang-balancer.md`
 
   Explains the Yin-Yang Balancer model, phase adjustments, sync / async bridge, and safety boundary.
+
+### Release Positioning and Claim Boundaries v0.3.1
+
+* `docs/release-positioning.md`
+
+  Explains what the protocol is, what it is not, how the release series evolved, and how the protocol should be positioned externally.
+
+* `docs/claim-boundaries.md`
+
+  Defines appropriate and inappropriate claims, including boundaries around energy reduction, safety, novelty, architecture replacement, and empirical performance.
 
 ### Examples
 
@@ -1239,6 +1303,14 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 
   Explains v0.3 dynamic equilibrium control and sync / async reasoning adjustment.
 
+* `docs/release-positioning.md`
+
+  Clarifies release-level positioning and technical interpretation.
+
+* `docs/claim-boundaries.md`
+
+  Clarifies safe claim boundaries and recommended external language.
+
 ### Validation
 
 * `scripts/validate_specs.py`
@@ -1254,26 +1326,28 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 Recommended reading order:
 
 1. `README.md`
-2. `docs/architecture-overview.md`
-3. `docs/yin-yang-state-model.md`
-4. `docs/five-phase-agent-roles.md`
-5. `docs/generating-cycle-routing.md`
-6. `docs/controlling-cycle-brake.md`
-7. `docs/relationship-to-multi-wing.md`
-8. `docs/energy-aware-reasoning-notes.md`
-9. `docs/yin-yang-balancer.md`
-10. `spec/five-phase-reasoning-protocol-v0.1.yaml`
-11. `schemas/five-phase-reasoning.schema.json`
-12. `examples/basic-reasoning-cycle.example.yaml`
-13. `examples/critique-stopping-cycle.example.yaml`
-14. `examples/memory-return-cycle.example.yaml`
-15. `spec/dynamic-control-metrics-v0.2.yaml`
-16. `schemas/dynamic-control-metrics.schema.json`
-17. `examples/energy-state-control.example.yaml`
-18. `spec/yin-yang-balancer-v0.3.yaml`
-19. `schemas/yin-yang-balancer.schema.json`
-20. `examples/yin-yang-balancer-control.example.yaml`
-21. `scripts/validate_specs.py`
+2. `docs/release-positioning.md`
+3. `docs/claim-boundaries.md`
+4. `docs/architecture-overview.md`
+5. `docs/yin-yang-state-model.md`
+6. `docs/five-phase-agent-roles.md`
+7. `docs/generating-cycle-routing.md`
+8. `docs/controlling-cycle-brake.md`
+9. `docs/relationship-to-multi-wing.md`
+10. `docs/energy-aware-reasoning-notes.md`
+11. `docs/yin-yang-balancer.md`
+12. `spec/five-phase-reasoning-protocol-v0.1.yaml`
+13. `schemas/five-phase-reasoning.schema.json`
+14. `examples/basic-reasoning-cycle.example.yaml`
+15. `examples/critique-stopping-cycle.example.yaml`
+16. `examples/memory-return-cycle.example.yaml`
+17. `spec/dynamic-control-metrics-v0.2.yaml`
+18. `schemas/dynamic-control-metrics.schema.json`
+19. `examples/energy-state-control.example.yaml`
+20. `spec/yin-yang-balancer-v0.3.yaml`
+21. `schemas/yin-yang-balancer.schema.json`
+22. `examples/yin-yang-balancer-control.example.yaml`
+23. `scripts/validate_specs.py`
 
 ## Validation
 
@@ -1521,6 +1595,12 @@ It is not a bypass mechanism.
 
 It is a control-layer mechanism for stabilizing reasoning behavior.
 
+## 10. Claims Should Remain Grounded
+
+This protocol should be presented as a structural reasoning-control specification.
+
+It should not be presented as a proven benchmark result, complete inference engine, or replacement for existing model architectures.
+
 ## Non-Goals
 
 This protocol does not attempt to:
@@ -1541,6 +1621,38 @@ This protocol does not attempt to:
 
 This is a structural protocol, not a completed inference engine.
 
+## Claim Boundaries
+
+The safest external position is:
+
+```text
+This protocol is a draft structural specification for reasoning control.
+```
+
+Appropriate claims:
+
+* this is a proposed reasoning-control structure
+* this is a schema-backed draft protocol
+* this models reasoning as phase transition and balance control
+* this connects Yin-Yang / Five-Phase concepts to reasoning-control vocabulary
+* this may support experiments in adaptive reasoning, stopping, compression, and memory routing
+
+Claims that require evidence before use:
+
+* measured energy reduction
+* benchmark improvement
+* replacement of model architecture
+* guaranteed safety improvement
+* superiority over existing architectures
+* complete novelty across all prior research
+* production readiness
+
+For full guidance, see:
+
+```text
+docs/claim-boundaries.md
+```
+
 ## Future Work
 
 Planned extensions may include:
@@ -1560,6 +1672,12 @@ Planned extensions may include:
 * convergence window models
 * balance amplitude tuning examples
 * implementation profiles for lightweight assistants
+
+A natural next major extension after v0.3.x is:
+
+```text
+v0.4.0 = Oscillation Tuning and Convergence Control
+```
 
 ## Citation
 
@@ -1594,6 +1712,8 @@ Brake Layer = stopping logic
 Memory Layer = retained essence and return
 Dynamic Control Metrics = runtime control dashboard
 Yin-Yang Balancer = dynamic equilibrium controller
+Release Positioning = external interpretation
+Claim Boundaries = grounded communication
 ```
 
 The central principle is simple:
@@ -1612,10 +1732,11 @@ It should know when to delay.
 
 It should know when to return.
 
-And with `v0.3.0`, it should also begin to rebalance itself when reasoning becomes one-sided.
+And with `v0.3.1`, the repository also clarifies how these ideas should be communicated responsibly.
 
 Reasoning should not merely continue.
 
-It should move with timing, restraint, memory, balance, and return.
+It should move with timing, restraint, memory, balance, return, and grounded claims.
+
 
 
