@@ -1,0 +1,119 @@
+example:
+  name: yin_yang_balancer_control_example
+  version: "0.3.0"
+  description: >
+    Demonstrates how Yin-Yang Balancer regulates over-expansion,
+    compression, sync/async transition, and delayed memory return.
+
+input:
+  user_request: "Explain the full implications of this protocol in detail."
+
+initial_state:
+  active_phase: fire
+  state_mode: yang
+
+dynamic_control:
+  energy_state:
+    activation_level: 0.86
+    compression_level: 0.18
+    routing_cost: 0.74
+    active_phase_count: 4
+    expansion_depth: 5
+    state_mode: yang
+
+  suppression_score:
+    value: 0.79
+    triggered_by: excessive_branching_detected
+    controller: water
+    target: fire
+
+  stop_confidence:
+    value: 0.36
+    evidence:
+      - "The answer is still incomplete."
+      - "The current reasoning path is expanding too widely."
+    decision: compress_then_continue
+
+yin_yang_balancer:
+  enabled: true
+  pivot_phase: earth
+  balance_mode: dynamic_equilibrium
+
+  detected_condition:
+    yang_signal: high
+    yin_signal: medium_high
+    phase_conflict: true
+    convergence_window_open: true
+
+  oscillation_control:
+    amplitude: moderate
+    prevent_overcorrection: true
+    cycle_window: 2_to_3_cycles
+
+  selected_adjustment:
+    transition: fire_to_water
+    trigger: excessive_expansion
+    action: cool_down_or_delay_response
+
+sync_async_control:
+  selected_mode: async_phase
+  reason: memory_settling_required
+
+  async_phase:
+    route:
+      - earth
+      - metal
+      - water
+      - delayed_wood_return
+
+  delayed_critique:
+    enabled: true
+    controller: metal
+    return_phase: earth
+
+  background_memory_return:
+    enabled: true
+    controller: water
+    return_phase: wood
+
+final_state:
+  active_phase: water
+  state_mode: yin
+  output_action: compress_retain_and_return_later
+
+final_metrics:
+  energy_state:
+    activation_level: 0.42
+    compression_level: 0.69
+    routing_cost: 0.31
+    active_phase_count: 2
+    expansion_depth: 2
+    state_mode: yin
+
+  suppression_score:
+    value: 0.38
+    triggered_by: residual_redundancy
+    controller: metal
+    target: fire
+
+  stop_confidence:
+    value: 0.74
+    evidence:
+      - "The excessive expansion has been reduced."
+      - "A delayed memory return is sufficient for remaining context."
+    decision: delayed_memory_return
+
+result:
+  route:
+    - fire
+    - earth
+    - metal
+    - water
+    - delayed_wood_return
+
+  retained_memory:
+    - "Over-expansion should be cooled through Water."
+    - "Earth should act as the pivot phase."
+    - "Delayed critique can prevent destructive over-pruning."
+
+  principle: "Controlled oscillation prevents both runaway expansion and premature silence."
