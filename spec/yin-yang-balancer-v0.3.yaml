@@ -1,0 +1,254 @@
+protocol_extension:
+  name: yin_yang_balancer
+  version: "0.3.0"
+  status: draft
+  extends:
+    - five-phase-reasoning-protocol-v0.1
+    - dynamic-control-metrics-v0.2
+
+  purpose: >
+    Yin-Yang Balancer defines a dynamic equilibrium layer for regulating
+    reasoning intensity, suppression, silence, critique, integration,
+    and sync/async transition behavior across the Five-Phase reasoning cycle.
+
+  summary: >
+    The v0.3.0 extension introduces constraint-aware balance control.
+    It uses Yin-Yang oscillation as a protocol-level model for preventing
+    over-expansion, over-suppression, stagnation, excessive critique,
+    and unnecessary reasoning activation.
+
+  non_goals:
+    - "Does not override model constraints."
+    - "Does not bypass safety boundaries."
+    - "Does not claim hardware-level energy reduction."
+    - "Does not replace model architecture."
+    - "Does not define a complete inference engine."
+
+  safety_boundary:
+    override_constraints: false
+    bypass_alignment: false
+    operate_within_existing_constraints: true
+    description: >
+      The balancer operates within existing model constraints and safety
+      boundaries. It provides a control-layer mechanism for stabilizing
+      reasoning behavior, not a mechanism for bypassing restrictions.
+
+  control_model:
+    type: dynamic_equilibrium
+    pivot_phase: earth
+    primary_function: balance_reasoning_flow
+
+    description: >
+      The balancer treats reasoning as a controlled oscillation between
+      Yang activation and Yin restraint. Earth acts as the pivot point
+      for integration, while Metal detects excess and Water absorbs
+      over-expansion.
+
+  yin_yang_mapping:
+    yang:
+      meaning: activation
+      functions:
+        - expansion
+        - exploration
+        - generation
+        - parallel_activation
+        - hypothesis_development
+      risks:
+        - over_expansion
+        - excessive_branching
+        - verbosity
+        - reasoning_overheat
+        - context_drift
+
+    yin:
+      meaning: restraint
+      functions:
+        - compression
+        - silence
+        - memory_settling
+        - stopping
+        - delayed_return
+      risks:
+        - stagnation
+        - over_suppression
+        - premature_stopping
+        - loss_of_useful_detail
+
+    balanced:
+      meaning: integration
+      functions:
+        - context_stabilization
+        - coherence_checking
+        - phase_alignment
+        - sync_async_selection
+        - convergence_control
+
+  input_signals:
+    yang_signals:
+      - expansion_pressure
+      - generation_momentum
+      - exploratory_reasoning
+      - active_phase_count
+      - parallel_activation
+      - low_stop_confidence
+
+    yin_signals:
+      - suppression_score
+      - stop_confidence
+      - uncertainty_level
+      - memory_settling_required
+      - redundancy_detected
+      - routing_cost_high
+
+    balance_signals:
+      - phase_conflict
+      - output_instability
+      - critique_expansion_tension
+      - context_integration_required
+      - convergence_window_open
+
+  oscillation_control:
+    amplitude:
+      allowed_range: [low, moderate, high]
+      default: moderate
+      description: >
+        Amplitude defines how strongly the system may shift between
+        Yang activation and Yin restraint.
+
+    cycle_window:
+      default: 2_to_3_cycles
+      description: >
+        The recommended number of phase transitions before balance
+        should be re-evaluated.
+
+    overcorrection_prevention:
+      enabled: true
+      description: >
+        Prevents excessive switching between expansion and suppression.
+
+    convergence_window:
+      enabled: true
+      default: short
+      description: >
+        Allows the system to stabilize before making a final stop,
+        reroute, or async-return decision.
+
+  phase_adjustments:
+    fire_to_water:
+      trigger: excessive_expansion
+      condition:
+        activation_level: high
+        suppression_score: high
+      action: cool_down_or_delay_response
+      description: >
+        When Fire expansion becomes excessive, Water absorbs the excess
+        through compression, silence, memory settling, or delayed return.
+
+    metal_to_earth:
+      trigger: excessive_critique
+      condition:
+        critique_pressure: high
+        output_confidence: medium_or_high
+      action: integrate_and_simplify
+      description: >
+        When Metal critique becomes excessive, Earth integrates the useful
+        critique and prevents destructive over-pruning.
+
+    water_to_wood:
+      trigger: stagnation_or_over_silence
+      condition:
+        silence_depth: high
+        stop_confidence: low
+      action: restart_with_minimal_direction
+      description: >
+        When Water becomes too deep and reasoning stagnates, Wood restores
+        minimal direction without unnecessary expansion.
+
+    earth_to_fire:
+      trigger: over_stabilization
+      condition:
+        integration_weight: high
+        answer_incomplete: true
+      action: reintroduce_light_expansion
+      description: >
+        When Earth stabilizes too early, Fire reintroduces controlled
+        expansion to complete the reasoning path.
+
+  sync_async_control:
+    sync_phase:
+      use_when:
+        - immediate_answer_required
+        - low_context_drift
+        - low_memory_settling_required
+        - high_stop_confidence
+      typical_route:
+        - wood
+        - fire
+        - earth
+        - metal
+        - water
+        - stop
+
+    async_phase:
+      use_when:
+        - memory_settling_required
+        - delayed_critique_needed
+        - background_context_integration_needed
+        - uncertainty_requires_later_return
+      typical_route:
+        - earth
+        - water
+        - delayed_wood_return
+
+    delayed_critique:
+      enabled: true
+      controller: metal
+      return_phase: earth
+      description: >
+        Critique may be delayed when immediate pruning would reduce
+        useful exploration or interrupt context integration.
+
+    background_memory_return:
+      enabled: true
+      controller: water
+      return_phase: wood
+      description: >
+        Water may retain essential patterns and return them to Wood as
+        refined direction in a later reasoning cycle.
+
+  routing_decisions:
+    - name: expand_now
+      condition:
+        yang_signal: medium_or_high
+        suppression_score: low
+        stop_confidence: low
+      route: fire_to_earth
+
+    - name: compress_now
+      condition:
+        suppression_score: high
+        stop_confidence: medium
+      route: metal_to_water
+
+    - name: stop_now
+      condition:
+        stop_confidence: high
+        memory_settling_required: false
+      route: water_to_stop
+
+    - name: delay_return
+      condition:
+        memory_settling_required: true
+        immediate_answer_required: false
+      route: water_to_delayed_wood
+
+    - name: rebalance
+      condition:
+        phase_conflict: true
+        convergence_window_open: true
+      route: earth_to_balanced_state
+
+  core_principle: >
+    Reasoning should not remain fixed in expansion or suppression.
+    It should oscillate within a controlled range, return to balance,
+    and stop when further activation would reduce clarity.
