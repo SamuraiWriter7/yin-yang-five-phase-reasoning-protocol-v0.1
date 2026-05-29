@@ -1,4 +1,3 @@
-```yaml
 example_id: critique-stopping-cycle.example
 protocol_ref: five-phase-reasoning-protocol-v0.1
 version: 0.1.0
@@ -219,4 +218,3 @@ validation_notes:
   expected_result: >
     A compact answer that demonstrates controlled reasoning, branch pruning,
     and intentional stopping.
-```
