@@ -1,6 +1,6 @@
 # Yin-Yang Five-Phase Reasoning Protocol
 
-A structural protocol for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang state transitions, Five-Phase routing, and dynamic control metrics.
+A structural protocol for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang state transitions, Five-Phase routing, dynamic control metrics, and Yin-Yang Balancer equilibrium control.
 
 ## Status
 
@@ -11,8 +11,10 @@ Current structure:
 * Core protocol: `v0.1`
 * Validation release: `v0.1.1`
 * Dynamic control metrics extension: `v0.2.0`
+* Yin-Yang Balancer extension: `v0.3.0`
 
 This repository defines an early conceptual and structural protocol.
+
 It is not a benchmark result, hardware implementation, or claim of immediate energy reduction.
 
 The purpose of this protocol is to describe a reasoning architecture that may support:
@@ -26,6 +28,11 @@ The purpose of this protocol is to describe a reasoning architecture that may su
 * reduction of unnecessary reasoning expansion
 * prevention of runaway generation
 * control-layer energy awareness
+* sync / async reasoning control
+* delayed critique
+* background memory return
+* dynamic equilibrium control
+* constraint-aware balance adjustment
 
 ## Core Idea
 
@@ -38,10 +45,11 @@ generate -> expand -> attend -> continue
 This protocol proposes a different model:
 
 ```text
-reasoning = phase transition + control metrics
+reasoning = phase transition + control metrics + balance control
 ```
 
 Reasoning should not always expand.
+
 Reasoning should breathe.
 
 The system alternates between two primary states:
@@ -63,21 +71,53 @@ These metrics help a reasoning system estimate:
 * whether reasoning should be suppressed, pruned, or rerouted
 * whether the answer is sufficient enough to stop
 
+With the `v0.3.0` extension, the protocol adds **Yin-Yang Balancer**:
+
+* dynamic equilibrium control
+* oscillation amplitude control
+* phase balance adjustment
+* sync / async phase selection
+* delayed critique
+* background memory return
+* constraint-aware balance adjustment
+
+The v0.3.0 extension uses v0.2.0 dynamic control metrics as input signals for balancing reasoning flow.
+
+In simple terms:
+
+```text
+v0.1 = reasoning cycle
+v0.2 = runtime control metrics
+v0.3 = dynamic balance controller
+```
+
 ## Why This Matters
 
 Large-scale AI systems often face several structural limits:
 
 1. **Energy intensity**
+
    Continuous activation and wide-context computation can increase computational cost.
 
 2. **Reasoning rigidity**
+
    A single model or fixed pipeline may continue generating even when compression, critique, or stopping would be more appropriate.
 
 3. **Weak stopping behavior**
+
    Many systems can generate but do not have an explicit structural model for deciding when enough reasoning has occurred.
 
 4. **Over-expansion**
+
    A system may continue branching, elaborating, or reviewing beyond the useful scope of the task.
+
+5. **Over-suppression**
+
+   A system may stop too early, compress too strongly, or remove useful context before integration is complete.
+
+6. **Weak sync / async control**
+
+   Some reasoning should be completed immediately, while other reasoning should be delayed, settled, critiqued later, or returned through memory.
 
 The Yin-Yang Five-Phase Reasoning Protocol addresses these limits at the architectural level by introducing:
 
@@ -88,22 +128,31 @@ The Yin-Yang Five-Phase Reasoning Protocol addresses these limits at the archite
 * memory return cycles
 * critique-based pruning
 * normalized dynamic control metrics
+* dynamic equilibrium control
+* controlled oscillation between expansion and restraint
+* sync / async reasoning transitions
 
 This protocol does not claim that philosophy directly reduces energy consumption.
+
 Rather, it uses Yin-Yang and Five-Phase structures as an architectural model for controlling reasoning flow.
 
 ## Minimal Definition
 
-Yin-Yang Five-Phase Reasoning Protocol is a dynamic reasoning architecture that replaces continuous model activation with phase-based, role-distributed, self-regulating inference.
+Yin-Yang Five-Phase Reasoning Protocol is a dynamic reasoning architecture that replaces continuous model activation with phase-based, role-distributed, self-regulating inference and balance-aware reasoning control.
 
 ## Short Definition
 
 Reasoning should breathe.
 
 It should expand when expansion is needed.
+
 It should compress when compression is wiser.
+
 It should stop when stopping is the highest form of intelligence.
-And it should use control signals to decide when to move, prune, retain, or stop.
+
+It should return when memory contains something useful.
+
+And it should use control signals and balance logic to decide when to move, prune, retain, delay, or stop.
 
 ## Yin-Yang State Model
 
@@ -121,6 +170,7 @@ In reasoning systems, Yang corresponds to:
 * exploration
 * creative divergence
 * active computation
+* parallel activation
 
 Yang is necessary for discovery and expression.
 
@@ -131,6 +181,8 @@ However, uncontrolled Yang may lead to:
 * hallucination risk
 * redundant computation
 * runaway generation
+* reasoning overheat
+* context drift
 
 ### Yin
 
@@ -144,10 +196,20 @@ In reasoning systems, Yin corresponds to:
 * stopping
 * memory consolidation
 * reduced activation
+* cooling
+* delayed return
 
 Yin is necessary for stability.
 
 Without Yin, reasoning cannot converge.
+
+However, excessive Yin may lead to:
+
+* stagnation
+* premature stopping
+* over-compression
+* loss of useful detail
+* delayed response without need
 
 ### Balanced State
 
@@ -157,11 +219,14 @@ Balanced state is used when reasoning requires integration rather than pure expa
 
 This is especially important for the Earth phase, where the system checks context, coherence, and alignment with the user’s actual request.
 
+With the v0.3.0 extension, Balanced state also serves as the control ground for Yin-Yang Balancer.
+
 ## Five-Phase Agent Roles
 
 This protocol defines five functional reasoning agents.
 
 These agents do not need to be separate models.
+
 They may be implemented as modules, prompts, policies, routing states, specialized agents, or internal reasoning roles.
 
 ```text
@@ -182,6 +247,8 @@ Primary functions:
 * form the initial hypothesis
 * identify possible reasoning paths
 * sense the direction of inquiry
+* restart reasoning from retained memory
+* restore minimal direction after over-silence
 
 Wood asks:
 
@@ -200,6 +267,7 @@ Primary functions:
 * produce code, text, or structured output
 * explore implications
 * develop logical paths
+* activate parallel reasoning when needed
 
 Fire asks:
 
@@ -218,6 +286,7 @@ Primary functions:
 * absorb contradiction
 * connect local reasoning with broader knowledge
 * stabilize meaning
+* act as the default pivot phase for Yin-Yang Balancer
 
 Earth asks:
 
@@ -237,11 +306,12 @@ Primary functions:
 * compress output
 * decide whether to stop
 * enforce precision
+* delay critique when immediate pruning would reduce useful exploration
 
 Metal asks:
 
 ```text
-What should be cut, corrected, or stopped?
+What should be cut, corrected, delayed, or stopped?
 ```
 
 ## Water: Memory Agent
@@ -255,6 +325,8 @@ Primary functions:
 * preserve minimal traces
 * support future reasoning cycles
 * return refined knowledge to Wood
+* cool excessive Fire expansion
+* support background memory return
 
 Water asks:
 
@@ -387,6 +459,7 @@ A high `suppression_score` may indicate:
 * memory overload
 
 A high suppression score does not always mean final stopping.
+
 It may mean pruning, rerouting, compression, or memory filtering.
 
 ## stop_confidence
@@ -516,9 +589,177 @@ Typical action:
 Retain minimal trace and stop.
 ```
 
+## Yin-Yang Balancer v0.3.0
+
+The `v0.3.0` extension adds Yin-Yang Balancer.
+
+It is defined in:
+
+```text
+spec/yin-yang-balancer-v0.3.yaml
+schemas/yin-yang-balancer.schema.json
+examples/yin-yang-balancer-control.example.yaml
+docs/yin-yang-balancer.md
+```
+
+Yin-Yang Balancer introduces a dynamic equilibrium layer for regulating:
+
+* reasoning intensity
+* suppression
+* silence
+* critique
+* integration
+* sync / async transition behavior
+* delayed critique
+* background memory return
+
+The balancer uses the v0.2.0 metrics as input signals.
+
+```text
+energy_state        -> how active the reasoning path is
+suppression_score   -> how strongly to compress, prune, reroute, or stop
+stop_confidence     -> how ready the system is to conclude
+```
+
+Yin-Yang Balancer then decides whether the system should:
+
+* expand now
+* compress now
+* stop now
+* delay return
+* rebalance
+* shift from sync to async reasoning
+* return through background memory
+
+## Core Principle of Yin-Yang Balancer
+
+Reasoning should not remain fixed in expansion or suppression.
+
+It should oscillate within a controlled range, return to balance, and stop when further activation would reduce clarity.
+
+In simple terms:
+
+```text
+Too much Fire  -> cool through Water
+Too much Metal -> integrate through Earth
+Too much Water -> restart through Wood
+Too much Earth -> reintroduce light Fire
+```
+
+## Safety Boundary
+
+Yin-Yang Balancer is constraint-aware.
+
+It does not:
+
+* override model constraints
+* bypass safety boundaries
+* replace model architecture
+* claim benchmark-proven performance improvement
+* claim hardware-level energy reduction
+* define a complete inference engine
+
+Its purpose is to regulate reasoning flow inside existing boundaries.
+
+## Yin-Yang Balancer Control Flow
+
+A typical v0.3 balancing flow may look like this:
+
+```text
+Fire expansion rises
+        ↓
+energy_state.activation_level becomes high
+        ↓
+suppression_score increases
+        ↓
+Earth checks context and coherence
+        ↓
+Metal detects redundancy
+        ↓
+Water cools, compresses, or delays
+        ↓
+Wood receives a refined return if needed
+```
+
+This allows the system to avoid both runaway expansion and premature silence.
+
+## Sync / Async Reasoning Control
+
+The v0.3.0 extension also introduces sync / async reasoning control.
+
+### Sync Phase
+
+Synchronous reasoning is preferred when:
+
+* the answer can be completed immediately
+* context drift is low
+* memory settling is not required
+* stop confidence is high
+
+Typical route:
+
+```text
+Wood -> Fire -> Earth -> Metal -> Water -> Stop
+```
+
+### Async Phase
+
+Asynchronous reasoning is preferred when:
+
+* memory settling is required
+* delayed critique is useful
+* background context integration is needed
+* uncertainty requires later return
+
+Typical route:
+
+```text
+Earth -> Water -> Delayed Wood Return
+```
+
+This makes it possible to preserve depth without continuing unnecessary activation.
+
+## Delayed Critique
+
+Metal critique does not always need to occur immediately.
+
+In some cases, immediate critique may interrupt useful exploration.
+
+The v0.3.0 extension allows critique to be delayed and returned through Earth after context integration.
+
+Example:
+
+```text
+Fire -> Earth -> delayed Metal -> Earth -> Water
+```
+
+This supports controlled refinement without destructive over-pruning.
+
+## Background Memory Return
+
+Water may retain essential patterns and return them to Wood in a later reasoning cycle.
+
+This supports:
+
+* delayed insight
+* reduced over-generation
+* memory-aware recurrence
+* future reasoning refinement
+* minimal renewed direction
+
+Example:
+
+```text
+Water -> delayed Wood return
+```
+
+The goal is not to continue reasoning endlessly.
+
+The goal is to retain only what can improve the next cycle.
+
 ## Protocol Layers
 
-This protocol can be understood through six layers.
+This protocol can be understood through seven layers.
 
 ### Layer 1: State Layer
 
@@ -621,6 +862,32 @@ dynamic_control:
     decision: compress_then_continue
 ```
 
+### Layer 7: Yin-Yang Balancer Layer
+
+Defines dynamic equilibrium control across the Five-Phase reasoning cycle.
+
+Example:
+
+```yaml
+yin_yang_balancer:
+  enabled: true
+  pivot_phase: earth
+  balance_mode: dynamic_equilibrium
+
+  detected_condition:
+    yang_signal: high
+    yin_signal: medium_high
+    phase_conflict: true
+    convergence_window_open: true
+
+  selected_adjustment:
+    transition: fire_to_water
+    trigger: excessive_expansion
+    action: cool_down_or_delay_response
+```
+
+This layer uses v0.2 metrics to regulate v0.3 balance decisions.
+
 ## Example Reasoning Cycle
 
 ```yaml
@@ -704,6 +971,60 @@ dynamic_control_cycle:
       decision: stop_after_memory_retention
 ```
 
+## Example Yin-Yang Balancer Cycle
+
+```yaml
+yin_yang_balancer_cycle:
+  input:
+    question: "Explain the full implications of the protocol."
+
+  initial_condition:
+    active_phase: fire
+    state_mode: yang
+
+  dynamic_control_metrics:
+    energy_state:
+      activation_level: 0.86
+      compression_level: 0.18
+      routing_cost: 0.74
+      active_phase_count: 4
+      expansion_depth: 5
+      state_mode: yang
+
+    suppression_score:
+      value: 0.79
+      triggered_by:
+        - excessive_branching_detected
+        - high_routing_cost
+        - verbosity_risk
+      controller: water
+      target_phase: fire
+
+    stop_confidence:
+      value: 0.36
+      decision: compress_then_continue
+
+  yin_yang_balancer:
+    enabled: true
+    pivot_phase: earth
+    balance_mode: dynamic_equilibrium
+
+    selected_adjustment:
+      transition: fire_to_water
+      trigger: excessive_expansion
+      action: cool_down_or_delay_response
+
+  route:
+    - fire
+    - earth
+    - metal
+    - water
+    - delayed_wood_return
+
+  result:
+    output_action: compress_retain_and_return_later
+```
+
 ## Relationship to Multi-Wing Architecture
 
 This protocol is designed to complement Multi-Wing reasoning systems.
@@ -718,6 +1039,7 @@ In simple terms:
 Multi-Wing = distributed reasoning architecture
 Yin-Yang Five-Phase = dynamic reasoning control protocol
 Dynamic Control Metrics = runtime control dashboard
+Yin-Yang Balancer = dynamic equilibrium controller
 ```
 
 Multi-Wing answers:
@@ -738,10 +1060,16 @@ The dynamic control metrics answer:
 How strongly should the system activate, suppress, or stop?
 ```
 
+Yin-Yang Balancer answers:
+
+```text
+How should the system rebalance when reasoning becomes one-sided?
+```
+
 Together, they form a more complete architecture:
 
 ```text
-Distributed intelligence + dynamic control + runtime metrics
+Distributed intelligence + dynamic control + runtime metrics + equilibrium balancing
 ```
 
 ## Energy-Aware Reasoning
@@ -755,6 +1083,7 @@ Reduce unnecessary reasoning activation.
 Route only what is needed.
 Stop when the answer is sufficient.
 Retain only what improves future cycles.
+Rebalance when expansion or suppression becomes excessive.
 ```
 
 Energy awareness begins at the control layer.
@@ -768,6 +1097,7 @@ It may reduce unnecessary reasoning activity by:
 * retaining only useful memory
 * routing to the smallest sufficient reasoning path
 * using `energy_state`, `suppression_score`, and `stop_confidence` to guide control decisions
+* using Yin-Yang Balancer to prevent over-expansion, over-suppression, and unnecessary reactivation
 
 This should be understood as an architectural direction, not a measured performance claim.
 
@@ -778,15 +1108,18 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 ├── README.md
 ├── spec/
 │   ├── five-phase-reasoning-protocol-v0.1.yaml
-│   └── dynamic-control-metrics-v0.2.yaml
+│   ├── dynamic-control-metrics-v0.2.yaml
+│   └── yin-yang-balancer-v0.3.yaml
 ├── schemas/
 │   ├── five-phase-reasoning.schema.json
-│   └── dynamic-control-metrics.schema.json
+│   ├── dynamic-control-metrics.schema.json
+│   └── yin-yang-balancer.schema.json
 ├── examples/
 │   ├── basic-reasoning-cycle.example.yaml
 │   ├── critique-stopping-cycle.example.yaml
 │   ├── memory-return-cycle.example.yaml
-│   └── energy-state-control.example.yaml
+│   ├── energy-state-control.example.yaml
+│   └── yin-yang-balancer-control.example.yaml
 ├── docs/
 │   ├── architecture-overview.md
 │   ├── yin-yang-state-model.md
@@ -794,7 +1127,8 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 │   ├── generating-cycle-routing.md
 │   ├── controlling-cycle-brake.md
 │   ├── relationship-to-multi-wing.md
-│   └── energy-aware-reasoning-notes.md
+│   ├── energy-aware-reasoning-notes.md
+│   └── yin-yang-balancer.md
 ├── scripts/
 │   └── validate_specs.py
 ├── .github/
@@ -810,66 +1144,110 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 ### Core Specification
 
 * `spec/five-phase-reasoning-protocol-v0.1.yaml`
+
   Machine-readable draft specification for the core protocol.
 
 * `schemas/five-phase-reasoning.schema.json`
+
   JSON Schema for validating the core protocol specification.
 
 ### Dynamic Control Metrics v0.2.0
 
 * `spec/dynamic-control-metrics-v0.2.yaml`
+
   Extension specification defining `energy_state`, `suppression_score`, and `stop_confidence`.
 
 * `schemas/dynamic-control-metrics.schema.json`
+
   JSON Schema for validating the dynamic control metrics extension.
 
 * `examples/energy-state-control.example.yaml`
+
   Demonstrates metric-guided routing, suppression, compression, and stopping behavior.
+
+### Yin-Yang Balancer v0.3.0
+
+* `spec/yin-yang-balancer-v0.3.yaml`
+
+  Extension specification defining dynamic equilibrium control, sync / async reasoning control, delayed critique, and background memory return.
+
+* `schemas/yin-yang-balancer.schema.json`
+
+  JSON Schema for validating the Yin-Yang Balancer extension.
+
+* `examples/yin-yang-balancer-control.example.yaml`
+
+  Demonstrates how v0.3 balance control regulates over-expansion, delayed critique, memory settling, and delayed return.
+
+* `docs/yin-yang-balancer.md`
+
+  Explains the Yin-Yang Balancer model, phase adjustments, sync / async bridge, and safety boundary.
 
 ### Examples
 
 * `examples/basic-reasoning-cycle.example.yaml`
+
   Demonstrates a standard Wood -> Fire -> Earth -> Metal -> Water reasoning cycle.
 
 * `examples/critique-stopping-cycle.example.yaml`
+
   Demonstrates how Metal and Water prevent over-expansion and stop runaway reasoning.
 
 * `examples/memory-return-cycle.example.yaml`
+
   Demonstrates how Water returns selected memory to Wood as a new inquiry vector.
 
 * `examples/energy-state-control.example.yaml`
+
   Demonstrates how v0.2 dynamic control metrics guide routing and stopping.
+
+* `examples/yin-yang-balancer-control.example.yaml`
+
+  Demonstrates how v0.3 Yin-Yang Balancer controls excessive expansion, delayed critique, background memory return, and sync / async transition behavior.
 
 ### Architecture Notes
 
 * `docs/architecture-overview.md`
+
   Explains the full architecture and how the protocol layers fit together.
 
 * `docs/yin-yang-state-model.md`
+
   Defines Yin, Yang, and Balanced states as reasoning-state control modes.
 
 * `docs/five-phase-agent-roles.md`
+
   Defines Wood, Fire, Earth, Metal, and Water as functional reasoning roles.
 
 * `docs/generating-cycle-routing.md`
+
   Defines the constructive routing cycle.
 
 * `docs/controlling-cycle-brake.md`
+
   Defines brake behavior, self-regulation, and stopping conditions.
 
 * `docs/relationship-to-multi-wing.md`
+
   Explains how this protocol connects to Multi-Wing architecture.
 
 * `docs/energy-aware-reasoning-notes.md`
+
   Explains energy-aware reasoning as a control-layer efficiency model.
+
+* `docs/yin-yang-balancer.md`
+
+  Explains v0.3 dynamic equilibrium control and sync / async reasoning adjustment.
 
 ### Validation
 
 * `scripts/validate_specs.py`
+
   Validates core specification files, v0.2 dynamic control metrics, examples, phase consistency, routing consistency, and metric ranges.
 
 * `.github/workflows/validate-specs.yml`
-  GitHub Actions workflow for automated validation.
+
+  GitHub Actions workflow for automated validation, including v0.3 spec, schema, and example checks.
 
 ## Start Here
 
@@ -883,15 +1261,19 @@ Recommended reading order:
 6. `docs/controlling-cycle-brake.md`
 7. `docs/relationship-to-multi-wing.md`
 8. `docs/energy-aware-reasoning-notes.md`
-9. `spec/five-phase-reasoning-protocol-v0.1.yaml`
-10. `schemas/five-phase-reasoning.schema.json`
-11. `examples/basic-reasoning-cycle.example.yaml`
-12. `examples/critique-stopping-cycle.example.yaml`
-13. `examples/memory-return-cycle.example.yaml`
-14. `spec/dynamic-control-metrics-v0.2.yaml`
-15. `schemas/dynamic-control-metrics.schema.json`
-16. `examples/energy-state-control.example.yaml`
-17. `scripts/validate_specs.py`
+9. `docs/yin-yang-balancer.md`
+10. `spec/five-phase-reasoning-protocol-v0.1.yaml`
+11. `schemas/five-phase-reasoning.schema.json`
+12. `examples/basic-reasoning-cycle.example.yaml`
+13. `examples/critique-stopping-cycle.example.yaml`
+14. `examples/memory-return-cycle.example.yaml`
+15. `spec/dynamic-control-metrics-v0.2.yaml`
+16. `schemas/dynamic-control-metrics.schema.json`
+17. `examples/energy-state-control.example.yaml`
+18. `spec/yin-yang-balancer-v0.3.yaml`
+19. `schemas/yin-yang-balancer.schema.json`
+20. `examples/yin-yang-balancer-control.example.yaml`
+21. `scripts/validate_specs.py`
 
 ## Validation
 
@@ -902,6 +1284,7 @@ The validation checks:
 * expected repository files exist
 * the core YAML specification validates against the JSON Schema
 * the v0.2 dynamic control metrics specification validates against its JSON Schema
+* the v0.3 Yin-Yang Balancer specification validates against its JSON Schema
 * Five-Phase agent definitions are complete
 * generating cycle references valid phases
 * controlling cycle includes expected control pairs
@@ -910,6 +1293,8 @@ The validation checks:
 * example reasoning cycles match their declared expected cycle order
 * dynamic control metrics use normalized values from `0.0` to `1.0`
 * runtime control objects are structurally valid
+* v0.3 example files include required structural groups
+* v0.3 specification and example versions are aligned
 
 Run locally:
 
@@ -918,6 +1303,14 @@ python scripts/validate_specs.py
 ```
 
 GitHub Actions runs the same validation automatically.
+
+The workflow also validates v0.3 files:
+
+```text
+spec/yin-yang-balancer-v0.3.yaml
+schemas/yin-yang-balancer.schema.json
+examples/yin-yang-balancer-control.example.yaml
+```
 
 ## Implementation Possibilities
 
@@ -935,6 +1328,7 @@ Example:
 3. Earth: check context and coherence.
 4. Metal: remove excess and correct overclaims.
 5. Water: retain the essential result and stop.
+6. Yin-Yang Balancer: adjust expansion, suppression, and stopping.
 ```
 
 With `v0.2.0`, the assistant may also estimate:
@@ -943,6 +1337,15 @@ With `v0.2.0`, the assistant may also estimate:
 energy_state
 suppression_score
 stop_confidence
+```
+
+With `v0.3.0`, the assistant may also estimate:
+
+```text
+yin_yang_balancer
+sync_async_control
+delayed_critique
+background_memory_return
 ```
 
 This is suitable for GPT-style assistants.
@@ -954,11 +1357,12 @@ Each phase can be implemented as a separate agent.
 Example:
 
 ```text
-Wood Agent  -> direction detection
-Fire Agent  -> generation
-Earth Agent -> context verification
-Metal Agent -> critique and compression
-Water Agent -> memory and return
+Wood Agent      -> direction detection
+Fire Agent      -> generation
+Earth Agent     -> context verification and balance pivot
+Metal Agent     -> critique and compression
+Water Agent     -> memory and return
+Balancer Layer  -> dynamic equilibrium control
 ```
 
 An orchestrator routes tasks between agents.
@@ -967,7 +1371,7 @@ This is suitable for Multi-Wing systems.
 
 ### Policy-Level Implementation
 
-The phases and metrics can be implemented as policies inside a larger reasoning system.
+The phases, metrics, and balancer can be implemented as policies inside a larger reasoning system.
 
 Example:
 
@@ -1004,6 +1408,14 @@ policies:
       - suppression_score
       - stop_confidence
     action: select_smallest_sufficient_route
+
+  yin_yang_balancer_policy:
+    trigger:
+      - excessive_expansion
+      - over_suppression
+      - phase_conflict
+      - convergence_window_open
+    action: rebalance_reasoning_flow
 ```
 
 ### GPT-Level Implementation
@@ -1016,6 +1428,9 @@ A lightweight GPT-style implementation may emphasize:
 * avoiding unnecessary expansion
 * retaining only the next useful action
 * estimating when suppression or stopping is appropriate
+* shifting between sync and async reasoning behavior
+* delaying critique when immediate pruning would reduce useful exploration
+* returning retained memory only when it improves the next response
 
 A practical implementation may be called:
 
@@ -1025,6 +1440,7 @@ Energy-Aware Reasoning Assistant
 ```
 
 This assistant would not reduce GPU power directly.
+
 It would reduce unnecessary reasoning behavior at the interaction and control level.
 
 ## Design Principles
@@ -1042,11 +1458,13 @@ Stopping, waiting, compressing, and refusing unnecessary expansion are valid rea
 ## 3. Critique Must Be Structural
 
 Critique should not be an afterthought.
+
 It should be built into the reasoning cycle.
 
 ## 4. Memory Should Be Selective
 
 Not everything should be retained.
+
 Memory should preserve essence, not noise.
 
 ## 5. Energy Awareness Begins With Routing
@@ -1075,11 +1493,33 @@ A refinement task may use:
 Water -> Wood -> Fire -> Earth -> Metal -> Water
 ```
 
+A balance-control task may use:
+
+```text
+Fire -> Earth -> Metal -> Water -> Delayed Wood Return
+```
+
 ## 7. Metrics Guide Control, But Do Not Replace Judgment
 
 `energy_state`, `suppression_score`, and `stop_confidence` are control-layer indicators.
 
 They should guide routing and stopping decisions, but they do not guarantee correctness, safety, or truth by themselves.
+
+## 8. Balance Is Not Static
+
+Yin-Yang Balancer does not force a fixed midpoint.
+
+It allows controlled oscillation.
+
+Reasoning may expand, compress, delay, return, or stop depending on context.
+
+## 9. Constraint-Aware Control Is Required
+
+The balancer operates within existing model constraints and safety boundaries.
+
+It is not a bypass mechanism.
+
+It is a control-layer mechanism for stabilizing reasoning behavior.
 
 ## Non-Goals
 
@@ -1094,6 +1534,10 @@ This protocol does not attempt to:
 * guarantee truth, safety, or alignment
 * require every reasoning task to pass through every phase
 * claim that `energy_state` is a hardware-level power measurement
+* override model constraints
+* bypass safety boundaries
+* claim benchmark-proven performance improvement
+* define a complete inference engine
 
 This is a structural protocol, not a completed inference engine.
 
@@ -1110,9 +1554,12 @@ Planned extensions may include:
 * neuromorphic implementation notes
 * routing policy examples
 * self-stopping condition models
-* sync / async reasoning control
-* delayed critique and background memory return
+* additional sync / async reasoning test cases
+* delayed critique test vectors
+* background memory return test vectors
 * convergence window models
+* balance amplitude tuning examples
+* implementation profiles for lightweight assistants
 
 ## Citation
 
@@ -1129,6 +1576,7 @@ See `CITATION.cff` for citation metadata.
 ## License
 
 This project is licensed under the MIT License.
+
 See `LICENSE` for details.
 
 ## Summary
@@ -1145,6 +1593,7 @@ Controlling Cycle = self-regulation
 Brake Layer = stopping logic
 Memory Layer = retained essence and return
 Dynamic Control Metrics = runtime control dashboard
+Yin-Yang Balancer = dynamic equilibrium controller
 ```
 
 The central principle is simple:
@@ -1154,11 +1603,19 @@ Reasoning should breathe.
 ```
 
 A reasoning system should know when to expand.
+
 It should know when to compress.
+
 It should know when to stop.
-And with `v0.2.0`, it should also begin to measure how strongly it should activate, suppress, and conclude.
+
+It should know when to delay.
+
+It should know when to return.
+
+And with `v0.3.0`, it should also begin to rebalance itself when reasoning becomes one-sided.
 
 Reasoning should not merely continue.
 
-It should move with timing, restraint, memory, and return.
+It should move with timing, restraint, memory, balance, and return.
+
 
