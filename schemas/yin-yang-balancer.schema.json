@@ -1,0 +1,401 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.org/schemas/yin-yang-balancer.schema.json",
+  "title": "Yin-Yang Balancer Schema",
+  "description": "Schema for the Yin-Yang Balancer v0.3 extension of the Yin-Yang Five-Phase Reasoning Protocol.",
+  "type": "object",
+  "required": ["protocol_extension"],
+  "additionalProperties": true,
+  "properties": {
+    "protocol_extension": {
+      "type": "object",
+      "required": [
+        "name",
+        "version",
+        "status",
+        "extends",
+        "purpose",
+        "summary",
+        "non_goals",
+        "safety_boundary",
+        "control_model",
+        "yin_yang_mapping",
+        "input_signals",
+        "oscillation_control",
+        "phase_adjustments",
+        "sync_async_control",
+        "routing_decisions",
+        "core_principle"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^0\\.3\\.0$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "experimental", "stable"]
+        },
+        "release_type": {
+          "type": "string"
+        },
+        "extends": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "non_goals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "safety_boundary": {
+          "type": "object",
+          "required": [
+            "override_constraints",
+            "bypass_alignment",
+            "operate_within_existing_constraints",
+            "description"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "override_constraints": {
+              "type": "boolean"
+            },
+            "bypass_alignment": {
+              "type": "boolean"
+            },
+            "operate_within_existing_constraints": {
+              "type": "boolean"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "control_model": {
+          "type": "object",
+          "required": [
+            "type",
+            "pivot_phase",
+            "primary_function",
+            "description"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "pivot_phase": {
+              "type": "string",
+              "enum": ["wood", "fire", "earth", "metal", "water"]
+            },
+            "primary_function": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          }
+        },
+        "yin_yang_mapping": {
+          "type": "object",
+          "required": ["yang", "yin", "balanced"],
+          "additionalProperties": true,
+          "properties": {
+            "yang": {
+              "$ref": "#/definitions/yinYangSide"
+            },
+            "yin": {
+              "$ref": "#/definitions/yinYangSide"
+            },
+            "balanced": {
+              "$ref": "#/definitions/yinYangSide"
+            }
+          }
+        },
+        "input_signals": {
+          "type": "object",
+          "required": [
+            "yang_signals",
+            "yin_signals",
+            "balance_signals"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "yang_signals": {
+              "$ref": "#/definitions/stringList"
+            },
+            "yin_signals": {
+              "$ref": "#/definitions/stringList"
+            },
+            "balance_signals": {
+              "$ref": "#/definitions/stringList"
+            }
+          }
+        },
+        "oscillation_control": {
+          "type": "object",
+          "required": [
+            "amplitude",
+            "cycle_window",
+            "overcorrection_prevention",
+            "convergence_window"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "amplitude": {
+              "type": "object",
+              "required": ["allowed_range", "default", "description"],
+              "additionalProperties": true,
+              "properties": {
+                "allowed_range": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["low", "moderate", "high"]
+                  }
+                },
+                "default": {
+                  "type": "string",
+                  "enum": ["low", "moderate", "high"]
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "cycle_window": {
+              "$ref": "#/definitions/descriptionObject"
+            },
+            "overcorrection_prevention": {
+              "$ref": "#/definitions/enabledDescriptionObject"
+            },
+            "convergence_window": {
+              "type": "object",
+              "required": ["enabled", "default", "description"],
+              "additionalProperties": true,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "default": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "phase_adjustments": {
+          "type": "object",
+          "required": [
+            "fire_to_water",
+            "metal_to_earth",
+            "water_to_wood",
+            "earth_to_fire"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "fire_to_water": {
+              "$ref": "#/definitions/phaseAdjustment"
+            },
+            "metal_to_earth": {
+              "$ref": "#/definitions/phaseAdjustment"
+            },
+            "water_to_wood": {
+              "$ref": "#/definitions/phaseAdjustment"
+            },
+            "earth_to_fire": {
+              "$ref": "#/definitions/phaseAdjustment"
+            }
+          }
+        },
+        "sync_async_control": {
+          "type": "object",
+          "required": [
+            "sync_phase",
+            "async_phase",
+            "delayed_critique",
+            "background_memory_return"
+          ],
+          "additionalProperties": true,
+          "properties": {
+            "sync_phase": {
+              "$ref": "#/definitions/phaseMode"
+            },
+            "async_phase": {
+              "$ref": "#/definitions/phaseMode"
+            },
+            "delayed_critique": {
+              "$ref": "#/definitions/controllerReturnPhase"
+            },
+            "background_memory_return": {
+              "$ref": "#/definitions/controllerReturnPhase"
+            }
+          }
+        },
+        "routing_decisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "condition", "route"],
+            "additionalProperties": true,
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "condition": {
+                "type": "object",
+                "additionalProperties": true
+              },
+              "route": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "core_principle": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "yinYangSide": {
+      "type": "object",
+      "required": ["meaning", "functions"],
+      "additionalProperties": true,
+      "properties": {
+        "meaning": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "functions": {
+          "$ref": "#/definitions/stringList"
+        },
+        "risks": {
+          "$ref": "#/definitions/stringList"
+        }
+      }
+    },
+    "descriptionObject": {
+      "type": "object",
+      "required": ["default", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "default": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "enabledDescriptionObject": {
+      "type": "object",
+      "required": ["enabled", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "phaseAdjustment": {
+      "type": "object",
+      "required": ["trigger", "condition", "action", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "trigger": {
+          "type": "string"
+        },
+        "condition": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "action": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "phaseMode": {
+      "type": "object",
+      "required": ["use_when", "typical_route"],
+      "additionalProperties": true,
+      "properties": {
+        "use_when": {
+          "$ref": "#/definitions/stringList"
+        },
+        "typical_route": {
+          "$ref": "#/definitions/stringList"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "controllerReturnPhase": {
+      "type": "object",
+      "required": ["enabled", "controller", "return_phase", "description"],
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "controller": {
+          "type": "string",
+          "enum": ["wood", "fire", "earth", "metal", "water"]
+        },
+        "return_phase": {
+          "type": "string",
+          "enum": ["wood", "fire", "earth", "metal", "water"]
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+
