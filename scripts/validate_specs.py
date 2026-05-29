@@ -1,4 +1,4 @@
-from **future** import annotations
+from __future__ import annotations
 
 import json
 import sys
@@ -581,6 +581,6 @@ validate_v02_example()
 print("All validations passed.")
 ```
 
-if **name** == "**main**":
-main()
+if __name__ == "__main__":
+    main()
 
