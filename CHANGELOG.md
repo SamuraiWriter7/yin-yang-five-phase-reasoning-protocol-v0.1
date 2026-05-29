@@ -2,37 +2,187 @@
 
 All notable changes to this project will be documented in this file.
 
-This project follows a simple versioning style during the early draft phase.
+This project follows a lightweight semantic versioning style for specification development.
+
+## [0.3.0] - 2026-05-30
+
+### Added
+
+Added the Yin-Yang Balancer extension as a non-breaking v0.3.0 extension.
+
+New files:
+
+* `spec/yin-yang-balancer-v0.3.yaml`
+* `schemas/yin-yang-balancer.schema.json`
+* `examples/yin-yang-balancer-control.example.yaml`
+* `docs/yin-yang-balancer.md`
+
+### Yin-Yang Balancer
+
+The v0.3.0 extension introduces a dynamic equilibrium layer for regulating reasoning intensity, suppression, silence, critique, integration, and sync / async transition behavior across the Five-Phase reasoning cycle.
+
+The balancer uses v0.2.0 dynamic control metrics as input signals:
+
+```text
+energy_state
+suppression_score
+stop_confidence
+```
+
+These signals are used to support balance-aware routing decisions such as:
+
+```text
+expand_now
+compress_now
+stop_now
+delay_return
+rebalance
+```
+
+### Core Concepts Added
+
+* Yin-Yang Balancer
+* Dynamic equilibrium control
+* Oscillation amplitude control
+* Phase balance adjustment
+* Earth as pivot phase
+* Fire-to-Water cooling
+* Metal-to-Earth integration
+* Water-to-Wood restart
+* Earth-to-Fire light expansion
+* Sync / async reasoning control
+* Delayed critique
+* Background memory return
+* Convergence window
+* Constraint-aware balance adjustment
+
+### Phase Adjustment Model
+
+The v0.3.0 extension defines several balance transitions:
+
+```text
+Fire  -> Water  = cool excessive expansion
+Metal -> Earth  = integrate excessive critique
+Water -> Wood   = restart from over-silence or stagnation
+Earth -> Fire   = reintroduce light expansion after over-stabilization
+```
+
+These transitions are intended to prevent reasoning from becoming one-sided.
+
+### Sync / Async Reasoning Control
+
+Added a structural model for selecting between synchronous and asynchronous reasoning behavior.
+
+Synchronous reasoning is preferred when the answer can be completed immediately and stop confidence is high.
+
+Asynchronous reasoning is preferred when memory settling, delayed critique, or background context integration is useful.
+
+### Validation
+
+Updated GitHub Actions validation to include v0.3 files:
+
+* `spec/yin-yang-balancer-v0.3.yaml`
+* `schemas/yin-yang-balancer.schema.json`
+* `examples/yin-yang-balancer-control.example.yaml`
+
+The validation workflow now checks:
+
+* required v0.3 files exist
+* the v0.3 specification validates against its JSON Schema
+* the v0.3 example contains required structural groups
+* the v0.3 specification version is `0.3.0`
+* the v0.3 example version is `0.3.0`
+
+### Updated
+
+Updated `README.md` to reflect the v0.3.0 extension.
+
+The README now includes:
+
+* Yin-Yang Balancer overview
+* v0.3.0 status and structure
+* updated protocol layers
+* sync / async reasoning control
+* delayed critique
+* background memory return
+* updated repository structure
+* updated key documents
+* updated validation notes
+* updated implementation possibilities
+* updated future work
+
+### Non-Goals Clarified
+
+The v0.3.0 extension does not:
+
+* override model constraints
+* bypass safety boundaries
+* claim hardware-level energy reduction
+* claim benchmark-proven performance improvement
+* replace model architecture
+* define a complete inference engine
+
+The balancer is a constraint-aware control-layer mechanism for stabilizing reasoning behavior inside existing boundaries.
+
+### Notes
+
+The v0.3.0 extension builds directly on v0.2.0.
+
+In simple terms:
+
+```text
+v0.1.0 = Five-Phase reasoning skeleton
+v0.1.1 = Validation foundation
+v0.2.0 = Dynamic control metrics
+v0.3.0 = Yin-Yang dynamic balance control
+```
+
+The core principle remains:
+
+```text
+Reasoning should breathe.
+```
+
+With v0.3.0, this principle is extended:
+
+```text
+Reasoning should expand, compress, delay, return, and stop with balance.
+```
 
 ## [0.2.0] - 2026-05-29
 
 ### Added
 
-* Added Dynamic Control Metrics extension:
+Added the Dynamic Control Metrics extension.
 
-  * `spec/dynamic-control-metrics-v0.2.yaml`
-  * `schemas/dynamic-control-metrics.schema.json`
-  * `examples/energy-state-control.example.yaml`
+New files:
 
-* Extended validation script to support v0.2 dynamic control metrics:
+* `spec/dynamic-control-metrics-v0.2.yaml`
+* `schemas/dynamic-control-metrics.schema.json`
+* `examples/energy-state-control.example.yaml`
 
-  * `scripts/validate_specs.py`
+### Dynamic Control Metrics
 
-* Updated `README.md` to reflect the v0.2 dynamic control metrics extension.
+The v0.2.0 extension introduces normalized runtime control metrics for reasoning flow.
 
-### Dynamic Control Metrics Introduced
+Added metrics:
 
-This release introduces three normalized control-layer metrics:
+```text
+energy_state
+suppression_score
+stop_confidence
+```
 
-* `energy_state`
-* `suppression_score`
-* `stop_confidence`
+These metrics are intended to help a reasoning system estimate:
 
-These metrics are designed to support more precise reasoning control.
+* how active the current reasoning path is
+* whether reasoning should be suppressed, pruned, rerouted, or compressed
+* whether the current answer is sufficient enough to stop
+* whether additional expansion would reduce clarity
 
 ### energy_state
 
-`energy_state` represents the current activation profile of the reasoning process.
+Added `energy_state` as a control-layer activation profile.
 
 It may include:
 
@@ -43,69 +193,168 @@ It may include:
 * `expansion_depth`
 * `state_mode`
 
-This metric does not represent hardware-level electrical power consumption.
-It represents control-layer reasoning activation.
+This metric does not measure electrical power directly.
+
+It represents control-layer activation intensity.
 
 ### suppression_score
 
-`suppression_score` represents how strongly the system should suppress, prune, compress, reroute, or stop part of the current reasoning process.
+Added `suppression_score` as a signal for pruning, compression, rerouting, or stopping part of the current reasoning process.
 
-It may be triggered by:
+A high suppression score may indicate:
 
 * excessive branching
-* redundancy
+* repeated generation
 * reasoning overheat
 * context drift
-* low confidence
+* weak claims
 * memory overload
-
-A high `suppression_score` does not always mean final stopping.
-It may indicate pruning, compression, rerouting, or memory filtering.
 
 ### stop_confidence
 
-`stop_confidence` represents confidence that the current reasoning cycle is sufficient and should stop after any required memory retention.
+Added `stop_confidence` as a signal for deciding whether the current reasoning cycle is sufficient.
 
-High `stop_confidence` supports routing such as:
+High stop confidence may support routing such as:
 
 ```text
 Metal -> Water -> Stop
 ```
 
-Low `stop_confidence` may indicate that the system should continue through Fire or Earth before final stopping.
+Low stop confidence may indicate that the system should continue through Fire or Earth before stopping.
 
-### Validation Coverage Added
+### Metric Thresholds
 
-The validation script now checks:
+Added initial normalized threshold interpretation:
 
-* v0.2 dynamic control metrics specification exists
-* v0.2 JSON Schema exists
-* v0.2 example file exists
-* `spec/dynamic-control-metrics-v0.2.yaml` validates against `schemas/dynamic-control-metrics.schema.json`
-* `energy_state`, `suppression_score`, and `stop_confidence` are defined
-* metric values are normalized from `0.0` to `1.0`
-* threshold definitions are structurally valid
-* control decisions reference valid phases
-* runtime control object is structurally valid
-* `examples/energy-state-control.example.yaml` is structurally valid
+| Range       | Meaning       |
+| ----------- | ------------- |
+| 0.00 - 0.30 | Low signal    |
+| 0.31 - 0.70 | Medium signal |
+| 0.71 - 1.00 | High signal   |
 
-### Core Concepts Added
+These thresholds are protocol-level defaults, not universal laws.
 
-* Dynamic control metrics
-* Normalized activation profile
-* Suppression scoring
-* Stop confidence scoring
-* Metric-based routing
-* Metric-guided braking
-* Control-layer runtime dashboard
-* Energy-aware reasoning indicators
-* Runtime suppression and stopping logic
+### Updated
+
+Updated `README.md` to reflect v0.2.0.
+
+The README now includes:
+
+* Dynamic Control Metrics overview
+* `energy_state`
+* `suppression_score`
+* `stop_confidence`
+* metric-based routing examples
+* updated protocol layers
+* updated repository structure
+* updated key documents
+* updated validation notes
+* updated implementation possibilities
+* updated design principles
+* updated non-goals
+* updated future work
+
+### Validation
+
+Updated validation to support v0.2.0 files.
+
+Validation now checks:
+
+* v0.2 dynamic control metrics specification
+* dynamic control metrics schema
+* energy-state example structure
+* normalized metric values from `0.0` to `1.0`
+* runtime control object structure
 
 ### Notes
 
-This release extends the protocol without breaking the v0.1 core structure.
+The v0.2.0 extension does not claim hardware-level energy reduction.
 
-The v0.1 protocol defined the reasoning skeleton:
+It defines energy awareness as a control-layer design principle.
+
+## [0.1.1] - 2026-05-29
+
+### Added
+
+Added validation infrastructure for the initial protocol specification.
+
+New files and updates may include:
+
+* `scripts/validate_specs.py`
+* `.github/workflows/validate-specs.yml`
+
+### Validation
+
+Added automated validation for:
+
+* required repository files
+* core YAML specification
+* core JSON Schema
+* basic example structure
+* Five-Phase agent definitions
+* generating cycle consistency
+* controlling cycle consistency
+* routing policy references
+* example YAML validity
+
+### Updated
+
+Updated repository documentation to reflect validation support.
+
+### Notes
+
+This release establishes the validation foundation for later protocol extensions.
+
+## [0.1.0] - 2026-05-29
+
+### Added
+
+Initial draft release of the Yin-Yang Five-Phase Reasoning Protocol.
+
+Added the core protocol structure:
+
+* Yin-Yang state model
+* Five-Phase reasoning roles
+* generating cycle
+* controlling cycle
+* brake layer
+* memory layer
+* routing model
+* relationship to Multi-Wing architecture
+* energy-aware reasoning notes
+
+### Core Specification
+
+Added:
+
+* `spec/five-phase-reasoning-protocol-v0.1.yaml`
+* `schemas/five-phase-reasoning.schema.json`
+
+### Examples
+
+Added initial examples:
+
+* `examples/basic-reasoning-cycle.example.yaml`
+* `examples/critique-stopping-cycle.example.yaml`
+* `examples/memory-return-cycle.example.yaml`
+
+### Documentation
+
+Added initial documentation:
+
+* `docs/architecture-overview.md`
+* `docs/yin-yang-state-model.md`
+* `docs/five-phase-agent-roles.md`
+* `docs/generating-cycle-routing.md`
+* `docs/controlling-cycle-brake.md`
+* `docs/relationship-to-multi-wing.md`
+* `docs/energy-aware-reasoning-notes.md`
+
+### Core Concepts
+
+The initial protocol defines reasoning as a dynamic cycle rather than continuous expansion.
+
+Core architecture:
 
 ```text
 Yin-Yang = state control
@@ -116,117 +365,25 @@ Brake Layer = stopping logic
 Memory Layer = retained essence and return
 ```
 
-The v0.2 extension adds a runtime control dashboard:
+### Non-Goals
 
-```text
-energy_state = activation profile
-suppression_score = braking pressure
-stop_confidence = stopping readiness
-```
+The initial release does not attempt to:
 
-This release does not claim measured hardware-level energy reduction.
-
-It defines dynamic control metrics for reasoning behavior at the protocol layer.
-
-The core principle remains:
-
-```text
-Reasoning should breathe.
-```
-
-## [0.1.1] - 2026-05-29
-
-### Added
-
-* Added GitHub Actions validation workflow:
-
-  * `.github/workflows/validate-specs.yml`
-* Added validation script:
-
-  * `scripts/validate_specs.py`
-
-### Validation Coverage
-
-The validation workflow checks:
-
-* Expected repository files exist
-* `spec/five-phase-reasoning-protocol-v0.1.yaml` validates against `schemas/five-phase-reasoning.schema.json`
-* Five-Phase agent definitions are complete
-* Generating cycle references valid phases
-* Controlling cycle includes expected control pairs
-* Routing policy references valid phases
-* Example YAML files are structurally valid
-* Example reasoning cycles match their declared expected cycle order
-
-### Fixed
-
-* Removed Markdown code fences from machine-readable files where needed.
-* Fixed JSON Schema formatting so `schemas/five-phase-reasoning.schema.json` can be parsed as valid JSON.
-* Fixed YAML formatting issues in example files caused by copied Markdown code fences.
-* Fixed validation script formatting issues caused by Markdown conversion of Python dunder variables and indentation.
+* replace Transformer architecture
+* prove measured energy savings
+* define a complete hardware implementation
+* claim metaphysical properties of AI
+* present Yin-Yang or Five-Phase theory as a scientific law
+* automate all reasoning decisions without review
+* guarantee truth, safety, or alignment
 
 ### Notes
 
-This release added automated validation for the repository.
-
-No protocol-breaking changes were introduced.
-
-The core protocol remains:
+The central principle of the protocol is:
 
 ```text
 Reasoning should breathe.
 ```
 
-This version strengthens repository reliability by ensuring that the specification, schema, examples, and required files can be checked automatically through GitHub Actions.
-
-## [0.1.0] - 2026-05-29
-
-### Added
-
-* Initial release of the Yin-Yang Five-Phase Reasoning Protocol v0.1.
-* Added `README.md` with the core concept, purpose, repository structure, and start-here guide.
-* Added `spec/five-phase-reasoning-protocol-v0.1.yaml`.
-* Added `schemas/five-phase-reasoning.schema.json`.
-* Added basic example files:
-
-  * `examples/basic-reasoning-cycle.example.yaml`
-  * `examples/critique-stopping-cycle.example.yaml`
-  * `examples/memory-return-cycle.example.yaml`
-* Added documentation files:
-
-  * `docs/architecture-overview.md`
-  * `docs/yin-yang-state-model.md`
-  * `docs/five-phase-agent-roles.md`
-  * `docs/generating-cycle-routing.md`
-  * `docs/controlling-cycle-brake.md`
-  * `docs/relationship-to-multi-wing.md`
-  * `docs/energy-aware-reasoning-notes.md`
-* Added `CHANGELOG.md`.
-* Added `CITATION.cff`.
-* Added `LICENSE`.
-
-### Core Concepts Introduced
-
-* Yin-Yang state transition model
-* Five-Phase reasoning roles
-* Generating cycle routing
-* Controlling cycle brake behavior
-* Energy-aware reasoning control
-* Water-to-Wood memory return
-* Relationship to Multi-Wing architecture
-* Critique-driven compression
-* Selective memory retention
-* Stop-as-reasoning principle
-
-### Notes
-
-This release defines the protocol as a structural reasoning-control model.
-
-It does not claim measured hardware-level energy reduction, replacement of Transformer architectures, or a complete inference engine implementation.
-
-The core principle is:
-
-```text
-Reasoning should breathe.
-```
+A reasoning system should know when to expand, when to compress, when to retain, and when to stop.
 
