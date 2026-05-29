@@ -1,0 +1,732 @@
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/five-phase-reasoning.schema.json",
+  "title": "Yin-Yang Five-Phase Reasoning Protocol Schema",
+  "description": "JSON Schema for validating Yin-Yang Five-Phase Reasoning Protocol v0.1 YAML or JSON documents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "spec_id",
+    "name",
+    "version",
+    "status",
+    "schema_version",
+    "description",
+    "purpose",
+    "non_goals",
+    "core_principle",
+    "minimal_definition",
+    "short_definition",
+    "yin_yang_state_model",
+    "five_phase_agents",
+    "generating_cycle",
+    "controlling_cycle",
+    "protocol_layers",
+    "brake_conditions",
+    "memory_policy",
+    "routing_policy",
+    "energy_awareness_model",
+    "example_reasoning_cycle",
+    "validation_notes",
+    "license_note"
+  ],
+  "properties": {
+    "spec_id": {
+      "type": "string",
+      "const": "five-phase-reasoning-protocol-v0.1"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^0\\.1\\.0$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "experimental",
+        "stable",
+        "deprecated"
+      ]
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^0\\.1\\.0$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "core_principle": {
+      "type": "string",
+      "minLength": 1
+    },
+    "minimal_definition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "short_definition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "yin_yang_state_model": {
+      "$ref": "#/$defs/yin_yang_state_model"
+    },
+    "five_phase_agents": {
+      "$ref": "#/$defs/five_phase_agents"
+    },
+    "generating_cycle": {
+      "$ref": "#/$defs/generating_cycle"
+    },
+    "controlling_cycle": {
+      "$ref": "#/$defs/controlling_cycle"
+    },
+    "protocol_layers": {
+      "$ref": "#/$defs/protocol_layers"
+    },
+    "brake_conditions": {
+      "$ref": "#/$defs/brake_conditions"
+    },
+    "memory_policy": {
+      "$ref": "#/$defs/memory_policy"
+    },
+    "routing_policy": {
+      "$ref": "#/$defs/routing_policy"
+    },
+    "energy_awareness_model": {
+      "$ref": "#/$defs/energy_awareness_model"
+    },
+    "example_reasoning_cycle": {
+      "$ref": "#/$defs/example_reasoning_cycle"
+    },
+    "validation_notes": {
+      "$ref": "#/$defs/validation_notes"
+    },
+    "license_note": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "phase_name": {
+      "type": "string",
+      "enum": [
+        "wood",
+        "fire",
+        "earth",
+        "metal",
+        "water"
+      ]
+    },
+    "state_mode": {
+      "type": "string",
+      "enum": [
+        "yang",
+        "yin",
+        "balanced"
+      ]
+    },
+    "non_empty_string_array": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "yin_yang_state_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "states"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "states": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "yang",
+            "yin"
+          ],
+          "properties": {
+            "yang": {
+              "$ref": "#/$defs/yin_yang_state"
+            },
+            "yin": {
+              "$ref": "#/$defs/yin_yang_state"
+            }
+          }
+        }
+      }
+    },
+    "yin_yang_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "polarity",
+        "symbolic_value",
+        "function",
+        "description",
+        "typical_operations"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "polarity": {
+          "type": "string",
+          "enum": [
+            "positive",
+            "negative",
+            "neutral"
+          ]
+        },
+        "symbolic_value": {
+          "type": "string",
+          "enum": [
+            "+1",
+            "-1",
+            "0"
+          ]
+        },
+        "function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "typical_operations": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "risks_when_uncontrolled": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "risks_when_excessive": {
+          "$ref": "#/$defs/non_empty_string_array"
+        }
+      }
+    },
+    "five_phase_agents": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "wood",
+        "fire",
+        "earth",
+        "metal",
+        "water"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "wood": {
+          "$ref": "#/$defs/five_phase_agent"
+        },
+        "fire": {
+          "$ref": "#/$defs/five_phase_agent"
+        },
+        "earth": {
+          "$ref": "#/$defs/five_phase_agent"
+        },
+        "metal": {
+          "$ref": "#/$defs/five_phase_agent"
+        },
+        "water": {
+          "$ref": "#/$defs/five_phase_agent"
+        }
+      }
+    },
+    "five_phase_agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "role",
+        "primary_function",
+        "yin_yang_bias",
+        "description",
+        "asks",
+        "operations",
+        "outputs",
+        "failure_modes"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "primary_function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "yin_yang_bias": {
+          "$ref": "#/$defs/state_mode"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "asks": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operations": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "outputs": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "failure_modes": {
+          "$ref": "#/$defs/non_empty_string_array"
+        }
+      }
+    },
+    "generating_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "sequence",
+        "transitions"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "array",
+          "minItems": 6,
+          "items": {
+            "$ref": "#/$defs/phase_name"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/generating_transition"
+          }
+        }
+      }
+    },
+    "generating_transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from",
+        "to",
+        "meaning",
+        "condition"
+      ],
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/phase_name"
+        },
+        "to": {
+          "$ref": "#/$defs/phase_name"
+        },
+        "meaning": {
+          "type": "string",
+          "minLength": 1
+        },
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "controlling_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "controls"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/control_rule"
+          }
+        }
+      }
+    },
+    "control_rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "controller",
+        "target",
+        "function",
+        "trigger_conditions",
+        "possible_actions"
+      ],
+      "properties": {
+        "controller": {
+          "$ref": "#/$defs/phase_name"
+        },
+        "target": {
+          "$ref": "#/$defs/phase_name"
+        },
+        "function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trigger_conditions": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "possible_actions": {
+          "$ref": "#/$defs/non_empty_string_array"
+        }
+      }
+    },
+    "protocol_layers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state_layer",
+        "phase_layer",
+        "routing_layer",
+        "brake_layer",
+        "memory_layer"
+      ],
+      "properties": {
+        "state_layer": {
+          "$ref": "#/$defs/protocol_layer"
+        },
+        "phase_layer": {
+          "$ref": "#/$defs/protocol_layer"
+        },
+        "routing_layer": {
+          "$ref": "#/$defs/protocol_layer"
+        },
+        "brake_layer": {
+          "$ref": "#/$defs/protocol_layer"
+        },
+        "memory_layer": {
+          "$ref": "#/$defs/protocol_layer"
+        }
+      }
+    },
+    "protocol_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "required_fields"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_fields": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "allowed_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/state_mode"
+          }
+        },
+        "allowed_agents": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/phase_name"
+          }
+        }
+      }
+    },
+    "brake_conditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "conditions"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "conditions": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/brake_condition"
+          }
+        }
+      }
+    },
+    "brake_condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "preferred_agent",
+        "preferred_state",
+        "actions"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preferred_agent": {
+          "$ref": "#/$defs/phase_name"
+        },
+        "preferred_state": {
+          "$ref": "#/$defs/state_mode"
+        },
+        "actions": {
+          "$ref": "#/$defs/non_empty_string_array"
+        }
+      }
+    },
+    "memory_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "retain",
+        "avoid_retaining",
+        "retention_rule"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retain": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "avoid_retaining": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "retention_rule": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "routing_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "default_route",
+        "conditional_routes"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "default_route": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/phase_name"
+          }
+        },
+        "conditional_routes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/conditional_route"
+          }
+        }
+      }
+    },
+    "conditional_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition",
+        "route",
+        "expected_result"
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/phase_name"
+          }
+        },
+        "expected_result": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "energy_awareness_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "control_targets",
+        "indicators"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "control_targets": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "indicators": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "$ref": "#/$defs/energy_indicator"
+          }
+        }
+      }
+    },
+    "energy_indicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "description",
+        "preferred_direction"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "preferred_direction": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "example_reasoning_cycle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "cycle"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cycle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "wood",
+            "fire",
+            "earth",
+            "metal",
+            "water"
+          ],
+          "properties": {
+            "wood": {
+              "$ref": "#/$defs/example_phase_step"
+            },
+            "fire": {
+              "$ref": "#/$defs/example_phase_step"
+            },
+            "earth": {
+              "$ref": "#/$defs/example_phase_step"
+            },
+            "metal": {
+              "$ref": "#/$defs/example_phase_step"
+            },
+            "water": {
+              "$ref": "#/$defs/example_phase_step"
+            }
+          }
+        }
+      }
+    },
+    "example_phase_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "function",
+        "output"
+      ],
+      "properties": {
+        "function": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "validation_notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_top_level_fields",
+        "recommended_checks"
+      ],
+      "properties": {
+        "required_top_level_fields": {
+          "$ref": "#/$defs/non_empty_string_array"
+        },
+        "recommended_checks": {
+          "$ref": "#/$defs/non_empty_string_array"
+        }
+      }
+    }
+  }
+}
+```
