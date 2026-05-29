@@ -1,0 +1,222 @@
+```yaml
+example_id: critique-stopping-cycle.example
+protocol_ref: five-phase-reasoning-protocol-v0.1
+version: 0.1.0
+status: draft
+
+description: >
+  An example of a reasoning cycle where the system detects over-expansion,
+  activates critique, compresses the response, and stops further generation.
+  This example demonstrates how Metal and Water phases prevent runaway reasoning.
+
+input:
+  question: "Explain every possible implication of the Yin-Yang Five-Phase Reasoning Protocol."
+  task_type: broad_explanation
+  desired_output: focused_answer
+
+initial_state:
+  mode: yang
+  active_agent: wood
+  reason: "The user's request is broad and requires direction detection."
+
+reasoning_cycle:
+  - phase: wood
+    state: yang
+    role: intuition
+    function: detect_core_direction
+    input: "Explain every possible implication of the protocol."
+    operation:
+      - detect_core_question
+      - identify_scope_risk
+      - form_initial_hypothesis
+    output:
+      core_direction: "The user is asking for implications, but the scope is too broad."
+      scope_assessment: "High risk of over-expansion."
+      initial_hypothesis: >
+        A focused explanation should identify the most important implications
+        instead of attempting to cover every possible branch.
+      next_phase: fire
+    transition:
+      to: fire
+      reason: "Some expansion is needed before critique can determine the useful scope."
+
+  - phase: fire
+    state: yang
+    role: expansion
+    function: develop_reasoning
+    input: "Identify the main implications of the protocol."
+    operation:
+      - expand_hypothesis
+      - list_possible_implications
+      - generate_candidate_branches
+    output:
+      candidate_implications:
+        - "energy-aware reasoning"
+        - "multi-agent routing"
+        - "self-stopping generation"
+        - "critique-driven compression"
+        - "memory-aware recurrence"
+        - "neuromorphic compatibility"
+        - "AI governance implications"
+        - "philosophical interpretation"
+        - "relationship to Multi-Wing architecture"
+        - "possible protocol standardization"
+      expansion_warning: >
+        The number of branches is increasing and may exceed the user's practical need.
+      next_phase: earth
+    transition:
+      to: earth
+      reason: "The expanded branches need contextual evaluation."
+
+  - phase: earth
+    state: balanced
+    role: context
+    function: integrate_context
+    input: "Multiple possible implications have been generated."
+    operation:
+      - check_relevance
+      - evaluate_user_need
+      - stabilize_scope
+      - detect_context_drift
+    output:
+      contextual_assessment: >
+        The user likely needs a useful explanation of the strongest implications,
+        not an exhaustive catalogue of every possible direction.
+      relevant_branches:
+        - "energy-aware reasoning"
+        - "multi-agent routing"
+        - "self-stopping generation"
+        - "critique-driven compression"
+        - "memory-aware recurrence"
+      lower_priority_branches:
+        - "philosophical interpretation"
+        - "possible protocol standardization"
+        - "neuromorphic compatibility"
+      context_drift_detected: true
+      next_phase: metal
+    transition:
+      to: metal
+      reason: "The output must be pruned before it becomes too broad."
+
+  - phase: metal
+    state: yin
+    role: critique
+    function: prune_and_stop
+    input: >
+      The reasoning has generated many possible branches, including several
+      that may not be necessary for the current answer.
+    operation:
+      - remove_low_priority_branches
+      - reduce_redundancy
+      - detect_over_expansion
+      - compress_output
+      - evaluate_stopping_condition
+    brake_check:
+      triggered: true
+      triggered_by: "excessive_branching_detected"
+      severity: high
+      action: "select_primary_path_and_stop_secondary_paths"
+    critique_notes:
+      - "Do not attempt to explain every possible implication."
+      - "Prioritize the implications that directly affect reasoning architecture."
+      - "Avoid drifting into speculative philosophy unless requested."
+      - "Stop after delivering a compact answer."
+    pruned_branches:
+      - "philosophical interpretation"
+      - "distant hardware speculation"
+      - "standardization roadmap"
+      - "historical comparison"
+    retained_branches:
+      - "energy-aware reasoning"
+      - "multi-agent routing"
+      - "self-stopping generation"
+      - "critique-driven compression"
+      - "memory-aware recurrence"
+    compressed_output: >
+      The most important implication of this protocol is that reasoning can be
+      controlled as a cycle of activation, critique, compression, and memory
+      rather than as continuous expansion.
+    stop_or_continue_decision: continue_to_water_then_stop
+    next_phase: water
+    transition:
+      to: water
+      reason: "The essential result should be retained before stopping."
+
+  - phase: water
+    state: yin
+    role: memory
+    function: retain_essence
+    input: >
+      The most important implication is that reasoning can be controlled
+      as a cycle of activation, critique, compression, and memory.
+    operation:
+      - extract_reusable_lesson
+      - preserve_minimal_trace
+      - prepare_final_answer
+      - stop_generation
+    output:
+      retained_essence: >
+        Broad reasoning requests should be routed through critique before
+        expansion becomes uncontrolled.
+      reusable_pattern: >
+        When scope expands too far, Earth detects drift, Metal prunes branches,
+        and Water retains only the essential pattern.
+      final_stop_decision: true
+      next_phase: final_output
+
+final_output:
+  summary: >
+    The strongest implication of the Yin-Yang Five-Phase Reasoning Protocol is
+    that AI reasoning does not need to expand continuously. A reasoning system
+    can activate when exploration is useful, then shift into critique,
+    compression, memory, and stopping when the answer is already sufficient.
+
+  key_points:
+    - "Wood detects the direction of the question."
+    - "Fire expands possible reasoning paths."
+    - "Earth checks which paths still fit the task."
+    - "Metal cuts unnecessary branches."
+    - "Water retains the essential lesson and stops the cycle."
+
+  concise_answer: >
+    This protocol turns stopping into a first-class reasoning operation.
+    It prevents runaway generation by making critique, compression, and
+    memory part of the reasoning cycle itself.
+
+memory_trace:
+  retain:
+    - "Stopping is a reasoning operation, not a failure."
+    - "Metal should activate when branching becomes excessive."
+    - "Water should retain only the useful essence after pruning."
+    - "Broad requests require scope control before final output."
+
+  avoid_retaining:
+    - "Every discarded branch."
+    - "Speculative claims not required by the user."
+    - "Redundant explanation of the full protocol."
+    - "Unverified energy reduction claims."
+
+validation_notes:
+  expected_cycle_order:
+    - wood
+    - fire
+    - earth
+    - metal
+    - water
+
+  expected_state_pattern:
+    - yang
+    - yang
+    - balanced
+    - yin
+    - yin
+
+  expected_brake_trigger:
+    condition: excessive_branching_detected
+    activated_phase: metal
+    final_action: stop_after_memory_retention
+
+  expected_result: >
+    A compact answer that demonstrates controlled reasoning, branch pruning,
+    and intentional stopping.
+```
