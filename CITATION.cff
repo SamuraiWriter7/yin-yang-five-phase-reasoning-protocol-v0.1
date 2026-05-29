@@ -1,4 +1,3 @@
-```yaml
 cff-version: 1.2.0
 message: "If you use this specification, please cite it as below."
 
@@ -52,7 +51,7 @@ preferred-citation:
   authors:
     - name: "SamuraiWriter7"
   repository-code: "https://github.com/SamuraiWriter7/yin-yang-five-phase-reasoning-protocol-v0.1"
-```
+
 
 
 
