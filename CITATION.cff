@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this specification, please cite it as below."
 title: "Yin-Yang Five-Phase Reasoning Protocol v0.1"
-version: "0.1.0"
+version: "0.1.1"
 date-released: "2026-05-29"
 type: software
 license: MIT
