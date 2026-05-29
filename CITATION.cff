@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this specification, please cite it as below."
+title: "Yin-Yang Five-Phase Reasoning Protocol v0.1"
+version: "0.1.0"
+date-released: "2026-05-29"
+type: software
+license: MIT
+
+authors:
+
+* name: "SamuraiWriter7"
+
+repository-code: "https://github.com/SamuraiWriter7/yin-yang-five-phase-reasoning-protocol-v0.1"
+url: "https://github.com/SamuraiWriter7/yin-yang-five-phase-reasoning-protocol-v0.1"
+
+abstract: >
+Yin-Yang Five-Phase Reasoning Protocol v0.1 is a structural protocol
+for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang
+state transitions and Five-Phase routing. It defines reasoning as a
+cycle of activation, integration, critique, compression, memory, and
+return, rather than continuous expansion.
+
+keywords:
+
+* reasoning-protocol
+* multi-agent-systems
+* energy-aware-reasoning
+* yin-yang
+* five-phase
+* multi-wing
+* agent-orchestration
+* critique
+* memory
+* reasoning-control
