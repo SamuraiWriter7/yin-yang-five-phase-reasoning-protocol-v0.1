@@ -1,0 +1,243 @@
+```yaml
+example_id: memory-return-cycle.example
+protocol_ref: five-phase-reasoning-protocol-v0.1
+version: 0.1.0
+status: draft
+
+description: >
+  An example of a reasoning cycle where retained memory from the Water phase
+  becomes the seed for a new Wood phase. This demonstrates how the protocol
+  supports recursive reasoning without preserving unnecessary noise.
+
+input:
+  question: "How can this protocol be improved after the first explanation?"
+  task_type: iterative_refinement
+  desired_output: next_cycle_direction
+
+previous_cycle_memory:
+  retained_essence: "Reasoning should breathe, not endlessly expand."
+  reusable_pattern: "Wood detects, Fire expands, Earth integrates, Metal prunes, Water retains."
+  unresolved_question: "How should the next version improve routing and stopping conditions?"
+  next_action: "Define a clearer memory-to-direction return process."
+
+initial_state:
+  mode: yin
+  active_agent: water
+  reason: "The cycle begins from retained memory rather than a new expansion."
+
+reasoning_cycle:
+  - phase: water
+    state: yin
+    role: memory
+    function: retrieve_retained_essence
+    input:
+      retained_essence: "Reasoning should breathe, not endlessly expand."
+      unresolved_question: "How should the next version improve routing and stopping conditions?"
+    operation:
+      - retrieve_relevant_memory
+      - filter_noise
+      - identify_return_seed
+      - prepare_next_cycle_seed
+    output:
+      retrieved_memory:
+        - "Reasoning should alternate between activation and restraint."
+        - "Stopping should be treated as a valid reasoning operation."
+        - "Memory should preserve essence, not full conversation history."
+      discarded_memory:
+        - "Redundant explanation from the previous cycle."
+        - "Speculative claims about hardware-level energy reduction."
+        - "Unnecessary philosophical expansion."
+      next_cycle_seed: >
+        Improve the protocol by clarifying how retained memory becomes
+        a new reasoning direction.
+      next_phase: wood
+    transition:
+      to: wood
+      reason: "The retained essence is ready to become a new direction."
+
+  - phase: wood
+    state: yang
+    role: intuition
+    function: detect_new_direction
+    input: >
+      Improve the protocol by clarifying how retained memory becomes
+      a new reasoning direction.
+    operation:
+      - detect_core_question
+      - form_new_hypothesis
+      - identify_next_reasoning_path
+    output:
+      core_direction: "Define memory return as a formal transition from Water to Wood."
+      new_hypothesis: >
+        The protocol should include a memory-return rule that converts
+        retained essence, unresolved questions, and next actions into
+        a new inquiry vector.
+      inquiry_vector: "water_to_wood_return_rule"
+      next_phase: fire
+    transition:
+      to: fire
+      reason: "The new direction needs minimal expansion."
+
+  - phase: fire
+    state: yang
+    role: expansion
+    function: develop_new_rule
+    input: "Define a formal Water-to-Wood return rule."
+    operation:
+      - expand_hypothesis
+      - generate_rule_definition
+      - propose_structural_fields
+    output:
+      proposed_rule:
+        name: water_to_wood_return
+        purpose: "Convert retained memory into a new reasoning direction."
+        fields:
+          - retained_essence
+          - unresolved_question
+          - next_action
+          - inquiry_vector
+      draft_definition: >
+        A Water-to-Wood return occurs when retained memory is no longer
+        passive storage but becomes the seed of a new reasoning cycle.
+      next_phase: earth
+    transition:
+      to: earth
+      reason: "The proposed rule must be checked against the protocol context."
+
+  - phase: earth
+    state: balanced
+    role: context
+    function: integrate_new_rule
+    input:
+      proposed_rule:
+        name: water_to_wood_return
+        purpose: "Convert retained memory into a new reasoning direction."
+    operation:
+      - check_coherence
+      - align_with_existing_cycle
+      - detect_conflicts
+      - stabilize_meaning
+    output:
+      contextualized_rule: >
+        The Water-to-Wood return rule completes the recursive structure of
+        the protocol by allowing retained essence to initiate a new cycle
+        without restarting from zero.
+      coherence_assessment: "The rule fits the generating cycle and strengthens iterative refinement."
+      conflict_detected: false
+      next_phase: metal
+    transition:
+      to: metal
+      reason: "The new rule should be pruned and made precise."
+
+  - phase: metal
+    state: yin
+    role: critique
+    function: refine_new_rule
+    input: >
+      The Water-to-Wood return rule completes the recursive structure of
+      the protocol by allowing retained essence to initiate a new cycle.
+    operation:
+      - reduce_redundancy
+      - detect_weak_claims
+      - compress_rule
+      - evaluate_stopping_condition
+    brake_check:
+      triggered: true
+      triggered_by: "definition_sufficient"
+      severity: medium
+      action: "compress_and_stop_after_memory_update"
+    output:
+      critique_notes:
+        - "Avoid implying that all memory should return to Wood."
+        - "Only retained essence, unresolved questions, or next actions should seed the next cycle."
+        - "The rule should remain minimal."
+      refined_rule: >
+        Water-to-Wood return converts selected retained memory into a new
+        inquiry vector when another reasoning cycle is useful.
+      stop_or_continue_decision: continue_to_water_then_stop
+      next_phase: water
+    transition:
+      to: water
+      reason: "The refined rule should be stored as an updated memory trace."
+
+  - phase: water
+    state: yin
+    role: memory
+    function: update_memory_trace
+    input: >
+      Water-to-Wood return converts selected retained memory into a new
+      inquiry vector when another reasoning cycle is useful.
+    operation:
+      - store_refined_rule
+      - update_reusable_pattern
+      - preserve_minimal_trace
+      - stop_generation
+    output:
+      updated_retained_essence: >
+        Memory is not passive storage. In this protocol, selected memory
+        can return as the seed of a new reasoning direction.
+      updated_reusable_pattern: >
+        Water retains essence. Wood receives selected essence as inquiry.
+        Fire expands only what is needed. Earth integrates. Metal prunes.
+        Water stores the refined result.
+      next_cycle_seed: "Apply the Water-to-Wood return rule in future examples."
+      final_stop_decision: true
+      next_phase: final_output
+
+final_output:
+  summary: >
+    The memory-return cycle shows how the protocol avoids both forgetting
+    and over-retention. Water preserves only the useful essence of a reasoning
+    cycle. When further reasoning is needed, that essence returns to Wood as
+    a new inquiry vector.
+
+  key_points:
+    - "Water does not store everything."
+    - "Only selected essence, unresolved questions, and next actions return."
+    - "Wood turns retained memory into a new direction."
+    - "The next cycle begins from refined memory rather than raw repetition."
+    - "This enables recursive reasoning without uncontrolled expansion."
+
+  concise_answer: >
+    Memory becomes useful when it can return as direction. The Water-to-Wood
+    transition converts retained essence into a new inquiry vector, allowing
+    the system to refine itself without preserving unnecessary noise.
+
+memory_trace:
+  retain:
+    - "Water-to-Wood return converts selected retained memory into a new inquiry vector."
+    - "Memory should preserve essence, unresolved questions, and next actions."
+    - "Recursive reasoning should begin from refined memory, not raw repetition."
+
+  avoid_retaining:
+    - "Full previous outputs."
+    - "Discarded branches."
+    - "Speculative details."
+    - "Redundant explanations."
+
+validation_notes:
+  expected_cycle_order:
+    - water
+    - wood
+    - fire
+    - earth
+    - metal
+    - water
+
+  expected_state_pattern:
+    - yin
+    - yang
+    - yang
+    - balanced
+    - yin
+    - yin
+
+  expected_return_transition:
+    from: water
+    to: wood
+    function: retained_memory_to_new_inquiry_vector
+
+  expected_result: >
+    A recursive reasoning example showing how retained essence becomes
+    the seed for a new reasoning cycle without preserving unnecessary noise.
+```
