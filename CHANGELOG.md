@@ -4,6 +4,117 @@ All notable changes to this project will be documented in this file.
 
 This project follows a lightweight semantic versioning style for specification development.
 
+## [0.3.1] - 2026-05-30
+
+### Added
+
+Added documentation and release-polish files for clearer external positioning and safer claim boundaries.
+
+New files:
+
+* `docs/release-positioning.md`
+* `docs/claim-boundaries.md`
+
+### Release Positioning
+
+Added `docs/release-positioning.md`.
+
+This document clarifies:
+
+* what the protocol is
+* what the protocol is not
+* how the release series evolved
+* how the protocol relates to existing reasoning-control areas
+* how Yin-Yang and Five-Phase concepts should be interpreted technically
+* how the v0.1, v0.2, and v0.3 releases fit together
+* why v0.3.1 is a documentation and release-polish release
+
+The recommended external positioning is:
+
+```text
+This repository proposes a control-layer model that connects multi-agent
+orchestration, adaptive reasoning, early stopping, critique-based compression,
+and memory-aware routing through a Yin-Yang Five-Phase structure.
+```
+
+### Claim Boundaries
+
+Added `docs/claim-boundaries.md`.
+
+This document defines appropriate and inappropriate claims for the protocol.
+
+It clarifies boundaries around:
+
+* energy-related claims
+* safety-related claims
+* architecture-replacement claims
+* novelty claims
+* empirical performance claims
+* benchmark claims
+* production-readiness claims
+* relationship to Yin-Yang and Five-Phase concepts
+
+The recommended claim level is:
+
+```text
+This protocol proposes a structural reasoning-control model.
+```
+
+### Updated
+
+Updated `README.md` to reflect the new v0.3.1 documentation.
+
+The README now includes:
+
+* current version: `v0.3.1`
+* documentation and release positioning in the status section
+* `docs/release-positioning.md`
+* `docs/claim-boundaries.md`
+* updated repository structure
+* updated key documents
+* updated recommended reading order
+* a new claim-boundaries section
+* grounded external positioning language
+* clarification that v0.3.1 introduces no new protocol mechanics
+
+### No Protocol Mechanics Added
+
+This release does not add new protocol mechanics.
+
+No changes were made to:
+
+* `spec/yin-yang-balancer-v0.3.yaml`
+* `schemas/yin-yang-balancer.schema.json`
+* `examples/yin-yang-balancer-control.example.yaml`
+* v0.2 dynamic control metrics
+* v0.1 core phase structure
+
+### Notes
+
+The purpose of v0.3.1 is to improve trustworthiness, readability, and external communication.
+
+In simple terms:
+
+```text
+v0.1.0 = Five-Phase reasoning skeleton
+v0.1.1 = Validation foundation
+v0.2.0 = Dynamic control metrics
+v0.3.0 = Yin-Yang dynamic balance control
+v0.3.1 = Documentation and claim-boundary polish
+```
+
+The core principle remains:
+
+```text
+Reasoning should breathe.
+```
+
+The v0.3.1 communication principle is:
+
+```text
+Reasoning should breathe, but claims should remain grounded.
+```
+
 ## [0.3.0] - 2026-05-30
 
 ### Added
@@ -386,4 +497,5 @@ Reasoning should breathe.
 ```
 
 A reasoning system should know when to expand, when to compress, when to retain, and when to stop.
+
 
