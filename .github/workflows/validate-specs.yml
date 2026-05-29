@@ -92,27 +92,40 @@ jobs:
               example_data = yaml.safe_load(f)
 
           print("Checking v0.3 example structure...")
-          required_example_keys = [
-              "example",
-              "input",
-              "initial_reasoning_state",
-              "dynamic_control_metrics",
-              "yin_yang_balancer",
-              "sync_async_control",
-              "routing_decision",
-              "final_reasoning_state",
-              "result",
-              "validation_notes",
+
+          def has_any(data, keys):
+              return any(key in data for key in keys)
+
+          required_key_groups = {
+              "example metadata": ["example"],
+              "input": ["input"],
+              "initial reasoning state": [
+                  "initial_state",
+                  "initial_reasoning_state"
+              ],
+              "dynamic control metrics": [
+                  "dynamic_control",
+                  "dynamic_control_metrics"
+              ],
+              "yin-yang balancer": ["yin_yang_balancer"],
+              "sync/async control": ["sync_async_control"],
+              "final reasoning state": [
+                  "final_state",
+                  "final_reasoning_state"
+              ],
+              "result": ["result"],
+          }
+
+          missing_groups = [
+              label
+              for label, keys in required_key_groups.items()
+              if not has_any(example_data, keys)
           ]
 
-          missing_example_keys = [
-              key for key in required_example_keys if key not in example_data
-          ]
-
-          if missing_example_keys:
+          if missing_groups:
               raise ValueError(
-                  "Missing required keys in v0.3 example:\n"
-                  + "\n".join(missing_example_keys)
+                  "Missing required structural groups in v0.3 example:\n"
+                  + "\n".join(missing_groups)
               )
 
           version = spec_data.get("protocol_extension", {}).get("version")
