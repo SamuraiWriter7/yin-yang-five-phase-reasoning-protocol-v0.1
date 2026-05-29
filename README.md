@@ -1,10 +1,16 @@
-# Yin-Yang Five-Phase Reasoning Protocol v0.1
+# Yin-Yang Five-Phase Reasoning Protocol
 
-A minimal protocol for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang state transitions and Five-Phase routing.
+A structural protocol for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang state transitions, Five-Phase routing, and dynamic control metrics.
 
 ## Status
 
-Draft specification v0.1.0.
+Draft specification.
+
+Current structure:
+
+* Core protocol: `v0.1`
+* Validation release: `v0.1.1`
+* Dynamic control metrics extension: `v0.2.0`
 
 This repository defines an early conceptual and structural protocol.
 It is not a benchmark result, hardware implementation, or claim of immediate energy reduction.
@@ -16,8 +22,10 @@ The purpose of this protocol is to describe a reasoning architecture that may su
 * self-regulating generation
 * critique-driven compression
 * memory-aware recurrence
+* dynamic stopping decisions
 * reduction of unnecessary reasoning expansion
 * prevention of runaway generation
+* control-layer energy awareness
 
 ## Core Idea
 
@@ -30,7 +38,7 @@ generate -> expand -> attend -> continue
 This protocol proposes a different model:
 
 ```text
-reasoning = phase transition
+reasoning = phase transition + control metrics
 ```
 
 Reasoning should not always expand.
@@ -41,17 +49,35 @@ The system alternates between two primary states:
 * **Yang**: activation, exploration, generation, expansion
 * **Yin**: compression, silence, memory, stopping
 
-Instead of treating reasoning as a continuously active process, this protocol treats reasoning as a dynamic oscillation between activation and restraint.
+It also uses a **Balanced** state for context integration.
+
+With the `v0.2.0` extension, the protocol adds normalized control metrics:
+
+* `energy_state`
+* `suppression_score`
+* `stop_confidence`
+
+These metrics help a reasoning system estimate:
+
+* how active the current reasoning path is
+* whether reasoning should be suppressed, pruned, or rerouted
+* whether the answer is sufficient enough to stop
 
 ## Why This Matters
 
-Large-scale AI systems often face two structural limits:
+Large-scale AI systems often face several structural limits:
 
 1. **Energy intensity**
    Continuous activation and wide-context computation can increase computational cost.
 
 2. **Reasoning rigidity**
    A single model or fixed pipeline may continue generating even when compression, critique, or stopping would be more appropriate.
+
+3. **Weak stopping behavior**
+   Many systems can generate but do not have an explicit structural model for deciding when enough reasoning has occurred.
+
+4. **Over-expansion**
+   A system may continue branching, elaborating, or reviewing beyond the useful scope of the task.
 
 The Yin-Yang Five-Phase Reasoning Protocol addresses these limits at the architectural level by introducing:
 
@@ -61,6 +87,7 @@ The Yin-Yang Five-Phase Reasoning Protocol addresses these limits at the archite
 * self-stopping logic
 * memory return cycles
 * critique-based pruning
+* normalized dynamic control metrics
 
 This protocol does not claim that philosophy directly reduces energy consumption.
 Rather, it uses Yin-Yang and Five-Phase structures as an architectural model for controlling reasoning flow.
@@ -76,6 +103,7 @@ Reasoning should breathe.
 It should expand when expansion is needed.
 It should compress when compression is wiser.
 It should stop when stopping is the highest form of intelligence.
+And it should use control signals to decide when to move, prune, retain, or stop.
 
 ## Yin-Yang State Model
 
@@ -275,9 +303,222 @@ In reasoning terms:
 
 The controlling cycle prevents reasoning from becoming one-sided.
 
+## Dynamic Control Metrics v0.2.0
+
+The `v0.2.0` extension adds normalized dynamic control metrics to the protocol.
+
+These metrics are defined in:
+
+```text
+spec/dynamic-control-metrics-v0.2.yaml
+schemas/dynamic-control-metrics.schema.json
+examples/energy-state-control.example.yaml
+```
+
+The purpose of this extension is to make reasoning control more explicit and measurable at the protocol layer.
+
+It introduces:
+
+```text
+energy_state
+suppression_score
+stop_confidence
+```
+
+These are control-layer indicators, not direct hardware measurements.
+
+## energy_state
+
+`energy_state` represents the current activation profile of the reasoning process.
+
+It may include:
+
+* `activation_level`
+* `compression_level`
+* `routing_cost`
+* `active_phase_count`
+* `expansion_depth`
+* `state_mode`
+
+Example:
+
+```yaml
+energy_state:
+  activation_level: 0.76
+  compression_level: 0.22
+  routing_cost: 0.61
+  active_phase_count: 3
+  expansion_depth: 4
+  state_mode: yang
+```
+
+Interpretation:
+
+* High activation may be appropriate for difficult tasks.
+* Low activation may be appropriate for concise or completed tasks.
+* High routing cost may indicate unnecessary complexity.
+* High compression may indicate strong Yin behavior.
+
+`energy_state` does not measure electrical power directly.
+
+It represents control-layer activation intensity.
+
+## suppression_score
+
+`suppression_score` represents how strongly the system should suppress, prune, compress, reroute, or stop part of the current reasoning process.
+
+Example:
+
+```yaml
+suppression_score:
+  value: 0.82
+  triggered_by: excessive_branching_detected
+  controller: water
+  target: fire
+```
+
+A high `suppression_score` may indicate:
+
+* excessive branching
+* repeated generation
+* reasoning overheat
+* context drift
+* weak claims
+* memory overload
+
+A high suppression score does not always mean final stopping.
+It may mean pruning, rerouting, compression, or memory filtering.
+
+## stop_confidence
+
+`stop_confidence` represents confidence that the current reasoning cycle is sufficient and should stop after any required memory retention.
+
+Example:
+
+```yaml
+stop_confidence:
+  value: 0.88
+  evidence:
+    - "The answer is sufficient."
+    - "Further expansion would reduce clarity."
+  decision: stop_after_memory_retention
+```
+
+High `stop_confidence` supports routing such as:
+
+```text
+Metal -> Water -> Stop
+```
+
+Low `stop_confidence` may indicate that the system should continue through Fire or Earth before final stopping.
+
+## Metric Thresholds
+
+The `v0.2.0` extension uses a normalized range:
+
+```text
+0.0 -> 1.0
+```
+
+Suggested interpretation:
+
+| Range       | Meaning       |
+| ----------- | ------------- |
+| 0.00 - 0.30 | Low signal    |
+| 0.31 - 0.70 | Medium signal |
+| 0.71 - 1.00 | High signal   |
+
+These thresholds are not universal laws.
+
+They are initial protocol-level defaults for control decisions.
+
+## Metric-Based Routing
+
+The metrics may guide routing decisions.
+
+### High suppression, low stop confidence
+
+Meaning:
+
+```text
+The current path is excessive, but the answer is not complete.
+```
+
+Recommended route:
+
+```text
+Earth -> Metal -> Fire
+```
+
+Typical action:
+
+```text
+Prune branch, then restore minimal needed detail.
+```
+
+### High suppression, high stop confidence
+
+Meaning:
+
+```text
+Further reasoning is likely unnecessary.
+```
+
+Recommended route:
+
+```text
+Metal -> Water -> Stop
+```
+
+Typical action:
+
+```text
+Compress, retain essence, and stop.
+```
+
+### Low suppression, low stop confidence
+
+Meaning:
+
+```text
+The reasoning is not excessive, but the answer is not complete.
+```
+
+Recommended route:
+
+```text
+Fire -> Earth
+```
+
+Typical action:
+
+```text
+Continue expansion with context checking.
+```
+
+### Low suppression, high stop confidence
+
+Meaning:
+
+```text
+The answer is sufficient and does not require strong pruning.
+```
+
+Recommended route:
+
+```text
+Water -> Stop
+```
+
+Typical action:
+
+```text
+Retain minimal trace and stop.
+```
+
 ## Protocol Layers
 
-This protocol can be understood through five layers.
+This protocol can be understood through six layers.
 
 ### Layer 1: State Layer
 
@@ -350,6 +591,36 @@ memory:
     - next_action
 ```
 
+### Layer 6: Dynamic Control Metrics Layer
+
+Defines runtime control signals for activation, suppression, and stopping.
+
+Example:
+
+```yaml
+dynamic_control:
+  energy_state:
+    activation_level: 0.52
+    compression_level: 0.61
+    routing_cost: 0.38
+    active_phase_count: 2
+    expansion_depth: 2
+    state_mode: yin
+
+  suppression_score:
+    value: 0.44
+    triggered_by: scope_reduced
+    controller: metal
+    target: fire
+
+  stop_confidence:
+    value: 0.68
+    evidence:
+      - "The scope has been narrowed."
+      - "The answer still needs a concise comparison."
+    decision: compress_then_continue
+```
+
 ## Example Reasoning Cycle
 
 ```yaml
@@ -377,6 +648,62 @@ reasoning_cycle:
     output: "Retain the principle: reasoning should breathe, not endlessly expand."
 ```
 
+## Example Dynamic Control Cycle
+
+```yaml
+dynamic_control_cycle:
+  input:
+    question: "Explain all possible implications of this protocol."
+
+  initial_metrics:
+    energy_state:
+      activation_level: 0.84
+      compression_level: 0.10
+      routing_cost: 0.72
+      active_phase_count: 4
+      expansion_depth: 5
+      state_mode: yang
+
+    suppression_score:
+      value: 0.78
+      triggered_by: excessive_branching_detected
+      controller: water
+      target: fire
+
+    stop_confidence:
+      value: 0.32
+      decision: continue_after_context_check
+
+  route:
+    - wood
+    - earth
+    - metal
+    - fire
+    - earth
+    - metal
+    - water
+    - stop
+
+  final_metrics:
+    energy_state:
+      activation_level: 0.39
+      compression_level: 0.72
+      routing_cost: 0.24
+      active_phase_count: 2
+      expansion_depth: 1
+      state_mode: yin
+
+    suppression_score:
+      value: 0.31
+      triggered_by: residual_redundancy
+      controller: metal
+      target: fire
+
+    stop_confidence:
+      value: 0.88
+      decision: stop_after_memory_retention
+```
+
 ## Relationship to Multi-Wing Architecture
 
 This protocol is designed to complement Multi-Wing reasoning systems.
@@ -390,6 +717,7 @@ In simple terms:
 ```text
 Multi-Wing = distributed reasoning architecture
 Yin-Yang Five-Phase = dynamic reasoning control protocol
+Dynamic Control Metrics = runtime control dashboard
 ```
 
 Multi-Wing answers:
@@ -404,10 +732,16 @@ This protocol answers:
 When should reasoning expand, compress, stop, or return?
 ```
 
+The dynamic control metrics answer:
+
+```text
+How strongly should the system activate, suppress, or stop?
+```
+
 Together, they form a more complete architecture:
 
 ```text
-Distributed intelligence + dynamic control
+Distributed intelligence + dynamic control + runtime metrics
 ```
 
 ## Energy-Aware Reasoning
@@ -433,6 +767,7 @@ It may reduce unnecessary reasoning activity by:
 * limiting redundant generation
 * retaining only useful memory
 * routing to the smallest sufficient reasoning path
+* using `energy_state`, `suppression_score`, and `stop_confidence` to guide control decisions
 
 This should be understood as an architectural direction, not a measured performance claim.
 
@@ -442,13 +777,16 @@ This should be understood as an architectural direction, not a measured performa
 yin-yang-five-phase-reasoning-protocol-v0.1/
 ├── README.md
 ├── spec/
-│   └── five-phase-reasoning-protocol-v0.1.yaml
+│   ├── five-phase-reasoning-protocol-v0.1.yaml
+│   └── dynamic-control-metrics-v0.2.yaml
 ├── schemas/
-│   └── five-phase-reasoning.schema.json
+│   ├── five-phase-reasoning.schema.json
+│   └── dynamic-control-metrics.schema.json
 ├── examples/
 │   ├── basic-reasoning-cycle.example.yaml
 │   ├── critique-stopping-cycle.example.yaml
-│   └── memory-return-cycle.example.yaml
+│   ├── memory-return-cycle.example.yaml
+│   └── energy-state-control.example.yaml
 ├── docs/
 │   ├── architecture-overview.md
 │   ├── yin-yang-state-model.md
@@ -457,6 +795,11 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 │   ├── controlling-cycle-brake.md
 │   ├── relationship-to-multi-wing.md
 │   └── energy-aware-reasoning-notes.md
+├── scripts/
+│   └── validate_specs.py
+├── .github/
+│   └── workflows/
+│       └── validate-specs.yml
 ├── CHANGELOG.md
 ├── CITATION.cff
 └── LICENSE
@@ -467,10 +810,21 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 ### Core Specification
 
 * `spec/five-phase-reasoning-protocol-v0.1.yaml`
-  Machine-readable draft specification for the protocol.
+  Machine-readable draft specification for the core protocol.
 
 * `schemas/five-phase-reasoning.schema.json`
-  JSON Schema for validating the protocol specification.
+  JSON Schema for validating the core protocol specification.
+
+### Dynamic Control Metrics v0.2.0
+
+* `spec/dynamic-control-metrics-v0.2.yaml`
+  Extension specification defining `energy_state`, `suppression_score`, and `stop_confidence`.
+
+* `schemas/dynamic-control-metrics.schema.json`
+  JSON Schema for validating the dynamic control metrics extension.
+
+* `examples/energy-state-control.example.yaml`
+  Demonstrates metric-guided routing, suppression, compression, and stopping behavior.
 
 ### Examples
 
@@ -482,6 +836,9 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 
 * `examples/memory-return-cycle.example.yaml`
   Demonstrates how Water returns selected memory to Wood as a new inquiry vector.
+
+* `examples/energy-state-control.example.yaml`
+  Demonstrates how v0.2 dynamic control metrics guide routing and stopping.
 
 ### Architecture Notes
 
@@ -506,6 +863,14 @@ yin-yang-five-phase-reasoning-protocol-v0.1/
 * `docs/energy-aware-reasoning-notes.md`
   Explains energy-aware reasoning as a control-layer efficiency model.
 
+### Validation
+
+* `scripts/validate_specs.py`
+  Validates core specification files, v0.2 dynamic control metrics, examples, phase consistency, routing consistency, and metric ranges.
+
+* `.github/workflows/validate-specs.yml`
+  GitHub Actions workflow for automated validation.
+
 ## Start Here
 
 Recommended reading order:
@@ -523,6 +888,36 @@ Recommended reading order:
 11. `examples/basic-reasoning-cycle.example.yaml`
 12. `examples/critique-stopping-cycle.example.yaml`
 13. `examples/memory-return-cycle.example.yaml`
+14. `spec/dynamic-control-metrics-v0.2.yaml`
+15. `schemas/dynamic-control-metrics.schema.json`
+16. `examples/energy-state-control.example.yaml`
+17. `scripts/validate_specs.py`
+
+## Validation
+
+This repository includes automated validation.
+
+The validation checks:
+
+* expected repository files exist
+* the core YAML specification validates against the JSON Schema
+* the v0.2 dynamic control metrics specification validates against its JSON Schema
+* Five-Phase agent definitions are complete
+* generating cycle references valid phases
+* controlling cycle includes expected control pairs
+* routing policy references valid phases
+* example YAML files are structurally valid
+* example reasoning cycles match their declared expected cycle order
+* dynamic control metrics use normalized values from `0.0` to `1.0`
+* runtime control objects are structurally valid
+
+Run locally:
+
+```bash
+python scripts/validate_specs.py
+```
+
+GitHub Actions runs the same validation automatically.
 
 ## Implementation Possibilities
 
@@ -540,6 +935,14 @@ Example:
 3. Earth: check context and coherence.
 4. Metal: remove excess and correct overclaims.
 5. Water: retain the essential result and stop.
+```
+
+With `v0.2.0`, the assistant may also estimate:
+
+```text
+energy_state
+suppression_score
+stop_confidence
 ```
 
 This is suitable for GPT-style assistants.
@@ -564,7 +967,7 @@ This is suitable for Multi-Wing systems.
 
 ### Policy-Level Implementation
 
-The phases can be implemented as policies inside a larger reasoning system.
+The phases and metrics can be implemented as policies inside a larger reasoning system.
 
 Example:
 
@@ -594,6 +997,13 @@ policies:
     phase: water
     trigger: reasoning_complete
     action: retain_essence
+
+  dynamic_control_policy:
+    metrics:
+      - energy_state
+      - suppression_score
+      - stop_confidence
+    action: select_smallest_sufficient_route
 ```
 
 ### GPT-Level Implementation
@@ -605,6 +1015,7 @@ A lightweight GPT-style implementation may emphasize:
 * pruning weak branches
 * avoiding unnecessary expansion
 * retaining only the next useful action
+* estimating when suppression or stopping is appropriate
 
 A practical implementation may be called:
 
@@ -664,6 +1075,12 @@ A refinement task may use:
 Water -> Wood -> Fire -> Earth -> Metal -> Water
 ```
 
+## 7. Metrics Guide Control, But Do Not Replace Judgment
+
+`energy_state`, `suppression_score`, and `stop_confidence` are control-layer indicators.
+
+They should guide routing and stopping decisions, but they do not guarantee correctness, safety, or truth by themselves.
+
 ## Non-Goals
 
 This protocol does not attempt to:
@@ -676,6 +1093,7 @@ This protocol does not attempt to:
 * automate all reasoning decisions without review
 * guarantee truth, safety, or alignment
 * require every reasoning task to pass through every phase
+* claim that `energy_state` is a hardware-level power measurement
 
 This is a structural protocol, not a completed inference engine.
 
@@ -684,7 +1102,6 @@ This is a structural protocol, not a completed inference engine.
 Planned extensions may include:
 
 * semantic validation rules
-* CI workflow for YAML and JSON Schema validation
 * additional examples for Multi-Wing routing
 * stopping-condition test vectors
 * prompt-level implementation profile
@@ -693,13 +1110,16 @@ Planned extensions may include:
 * neuromorphic implementation notes
 * routing policy examples
 * self-stopping condition models
+* sync / async reasoning control
+* delayed critique and background memory return
+* convergence window models
 
 ## Citation
 
 If you use this specification, please cite:
 
 ```text
-Yin-Yang Five-Phase Reasoning Protocol v0.1
+Yin-Yang Five-Phase Reasoning Protocol
 SamuraiWriter7
 2026
 ```
@@ -724,6 +1144,7 @@ Generating Cycle = constructive flow
 Controlling Cycle = self-regulation
 Brake Layer = stopping logic
 Memory Layer = retained essence and return
+Dynamic Control Metrics = runtime control dashboard
 ```
 
 The central principle is simple:
@@ -735,4 +1156,9 @@ Reasoning should breathe.
 A reasoning system should know when to expand.
 It should know when to compress.
 It should know when to stop.
-And when another cycle is needed, it should begin not from noise, but from retained essence.
+And with `v0.2.0`, it should also begin to measure how strongly it should activate, suppress, and conclude.
+
+Reasoning should not merely continue.
+
+It should move with timing, restraint, memory, and return.
+
