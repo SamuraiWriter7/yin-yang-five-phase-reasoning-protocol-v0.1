@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 
 This project follows a simple versioning style during the early draft phase.
 
+## [0.1.1-candidate] - 2026-05-29
+
+### Added
+
+* Added GitHub Actions validation workflow:
+
+  * `.github/workflows/validate-specs.yml`
+* Added validation script:
+
+  * `scripts/validate_specs.py`
+
+### Validation Coverage
+
+The validation workflow checks:
+
+* Expected repository files exist
+* `spec/five-phase-reasoning-protocol-v0.1.yaml` validates against `schemas/five-phase-reasoning.schema.json`
+* Five-Phase agent definitions are complete
+* Generating cycle references valid phases
+* Controlling cycle includes expected control pairs
+* Routing policy references valid phases
+* Example YAML files are structurally valid
+* Example reasoning cycles match their declared expected cycle order
+
+### Fixed
+
+* Removed Markdown code fences from machine-readable files where needed.
+* Fixed JSON Schema formatting so `schemas/five-phase-reasoning.schema.json` can be parsed as valid JSON.
+* Fixed YAML formatting issues in example files caused by copied Markdown code fences.
+
+### Notes
+
+This candidate release prepares the repository for automated validation.
+
+No protocol-breaking changes were introduced.
+
+The core protocol remains:
+
+```text
+Reasoning should breathe.
+```
+
+This version strengthens repository reliability by ensuring that the specification, schema, examples, and required files can be checked automatically through GitHub Actions.
+
 ## [0.1.0] - 2026-05-29
 
 ### Added
@@ -26,6 +70,9 @@ This project follows a simple versioning style during the early draft phase.
   * `docs/controlling-cycle-brake.md`
   * `docs/relationship-to-multi-wing.md`
   * `docs/energy-aware-reasoning-notes.md`
+* Added `CHANGELOG.md`.
+* Added `CITATION.cff`.
+* Added `LICENSE`.
 
 ### Core Concepts Introduced
 
@@ -51,3 +98,4 @@ The core principle is:
 ```text
 Reasoning should breathe.
 ```
+
