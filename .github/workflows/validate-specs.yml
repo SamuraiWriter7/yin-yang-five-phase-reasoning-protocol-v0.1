@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   validate-specs:
-    name: Validate YAML specs and examples
+    name: Validate YAML specs, schemas, and examples
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +35,97 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install PyYAML jsonschema
 
-      - name: Validate protocol specification
+      - name: Validate existing protocol specifications
         run: |
           python scripts/validate_specs.py
+
+      - name: Validate v0.3 Yin-Yang Balancer files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          import yaml
+          from jsonschema import Draft7Validator
+
+          required_files = [
+              Path("spec/yin-yang-balancer-v0.3.yaml"),
+              Path("schemas/yin-yang-balancer.schema.json"),
+              Path("examples/yin-yang-balancer-control.example.yaml"),
+          ]
+
+          missing = [str(path) for path in required_files if not path.exists()]
+          if missing:
+              raise FileNotFoundError(
+                  "Missing required v0.3 files:\n" + "\n".join(missing)
+              )
+
+          spec_path = Path("spec/yin-yang-balancer-v0.3.yaml")
+          schema_path = Path("schemas/yin-yang-balancer.schema.json")
+          example_path = Path("examples/yin-yang-balancer-control.example.yaml")
+
+          print(f"Loading spec: {spec_path}")
+          with spec_path.open("r", encoding="utf-8") as f:
+              spec_data = yaml.safe_load(f)
+
+          print(f"Loading schema: {schema_path}")
+          with schema_path.open("r", encoding="utf-8") as f:
+              schema_data = json.load(f)
+
+          print("Validating v0.3 spec against schema...")
+          validator = Draft7Validator(schema_data)
+          errors = sorted(
+              validator.iter_errors(spec_data),
+              key=lambda error: list(error.path)
+          )
+
+          if errors:
+              print("v0.3 schema validation failed:")
+              for error in errors:
+                  path = ".".join(str(part) for part in error.path)
+                  location = path if path else "<root>"
+                  print(f"- {location}: {error.message}")
+              raise SystemExit(1)
+
+          print(f"Loading example: {example_path}")
+          with example_path.open("r", encoding="utf-8") as f:
+              example_data = yaml.safe_load(f)
+
+          print("Checking v0.3 example structure...")
+          required_example_keys = [
+              "example",
+              "input",
+              "initial_reasoning_state",
+              "dynamic_control_metrics",
+              "yin_yang_balancer",
+              "sync_async_control",
+              "routing_decision",
+              "final_reasoning_state",
+              "result",
+              "validation_notes",
+          ]
+
+          missing_example_keys = [
+              key for key in required_example_keys if key not in example_data
+          ]
+
+          if missing_example_keys:
+              raise ValueError(
+                  "Missing required keys in v0.3 example:\n"
+                  + "\n".join(missing_example_keys)
+              )
+
+          version = spec_data.get("protocol_extension", {}).get("version")
+          if version != "0.3.0":
+              raise ValueError(
+                  f"Expected protocol_extension.version to be 0.3.0, got {version!r}"
+              )
+
+          example_version = example_data.get("example", {}).get("version")
+          if example_version != "0.3.0":
+              raise ValueError(
+                  f"Expected example.version to be 0.3.0, got {example_version!r}"
+              )
+
+          print("v0.3 Yin-Yang Balancer validation passed.")
+          PY
