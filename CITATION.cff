@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this specification, please cite it as below."
 
-title: "Yin-Yang Five-Phase Reasoning Protocol v0.3.0"
-version: "0.3.0"
+title: "Yin-Yang Five-Phase Reasoning Protocol v0.3.1"
+version: "0.3.1"
 date-released: "2026-05-30"
 
 type: software
@@ -14,15 +14,17 @@ authors:
 repository-code: "https://github.com/SamuraiWriter7/yin-yang-five-phase-reasoning-protocol-v0.1"
 
 abstract: >
-  Yin-Yang Five-Phase Reasoning Protocol v0.3.0 is a structural protocol
+  Yin-Yang Five-Phase Reasoning Protocol v0.3.1 is a structural protocol
   for dynamic, energy-aware, multi-agent reasoning based on Yin-Yang
   state transitions, Five-Phase routing, dynamic control metrics, and
   Yin-Yang Balancer equilibrium control. It defines reasoning as a cycle
   of activation, integration, critique, compression, memory, balance,
   and return, rather than continuous expansion. The v0.3.0 extension
-  introduces constraint-aware dynamic balance control for regulating
+  introduced constraint-aware dynamic balance control for regulating
   reasoning intensity, suppression, silence, critique, sync/async phase
-  selection, delayed critique, and background memory return.
+  selection, delayed critique, and background memory return. The v0.3.1
+  release adds documentation for release positioning and claim boundaries
+  without introducing new protocol mechanics.
 
 keywords:
   - artificial-intelligence
@@ -41,17 +43,19 @@ keywords:
   - constraint-aware-control
   - stopping-control
   - memory-aware-routing
+  - release-positioning
+  - claim-boundaries
+  - documentation-polish
 
 preferred-citation:
   type: software
-  title: "Yin-Yang Five-Phase Reasoning Protocol v0.3.0"
-  version: "0.3.0"
+  title: "Yin-Yang Five-Phase Reasoning Protocol v0.3.1"
+  version: "0.3.1"
   date-released: "2026-05-30"
   license: MIT
   authors:
     - name: "SamuraiWriter7"
   repository-code: "https://github.com/SamuraiWriter7/yin-yang-five-phase-reasoning-protocol-v0.1"
-
 
 
 
