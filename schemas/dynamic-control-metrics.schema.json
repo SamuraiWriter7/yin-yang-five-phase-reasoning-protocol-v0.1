@@ -1,0 +1,463 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/dynamic-control-metrics.schema.json",
+"title": "Dynamic Control Metrics Schema",
+"description": "JSON Schema for validating Dynamic Control Metrics v0.2 extension documents.",
+"type": "object",
+"additionalProperties": false,
+"required": [
+"spec_id",
+"name",
+"version",
+"status",
+"protocol_ref",
+"description",
+"purpose",
+"non_goals",
+"core_principle",
+"metric_model",
+"metric_definitions",
+"thresholds",
+"control_decisions",
+"runtime_control_object",
+"design_notes",
+"compatibility",
+"summary"
+],
+"properties": {
+"spec_id": {
+"type": "string",
+"const": "dynamic-control-metrics-v0.2"
+},
+"name": {
+"type": "string",
+"minLength": 1
+},
+"version": {
+"type": "string",
+"const": "0.2.0"
+},
+"status": {
+"type": "string",
+"enum": ["draft", "experimental", "stable", "deprecated"]
+},
+"protocol_ref": {
+"type": "string",
+"minLength": 1
+},
+"description": {
+"type": "string",
+"minLength": 1
+},
+"purpose": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"non_goals": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"core_principle": {
+"type": "string",
+"minLength": 1
+},
+"metric_model": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"description",
+"normalized_range",
+"interpretation"
+],
+"properties": {
+"description": {
+"type": "string",
+"minLength": 1
+},
+"normalized_range": {
+"$ref": "#/$defs/normalized_range"
+},
+"interpretation": {
+"type": "object",
+"additionalProperties": false,
+"required": ["low", "medium", "high"],
+"properties": {
+"low": {
+"type": "string",
+"minLength": 1
+},
+"medium": {
+"type": "string",
+"minLength": 1
+},
+"high": {
+"type": "string",
+"minLength": 1
+}
+}
+}
+}
+},
+"metric_definitions": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"energy_state",
+"suppression_score",
+"stop_confidence"
+],
+"properties": {
+"energy_state": {
+"$ref": "#/$defs/energy_state_definition"
+},
+"suppression_score": {
+"$ref": "#/$defs/score_definition"
+},
+"stop_confidence": {
+"$ref": "#/$defs/score_definition"
+}
+}
+},
+"thresholds": {
+"type": "object",
+"additionalProperties": false,
+"required": ["low", "medium", "high"],
+"properties": {
+"low": {
+"$ref": "#/$defs/threshold"
+},
+"medium": {
+"$ref": "#/$defs/threshold"
+},
+"high": {
+"$ref": "#/$defs/threshold"
+}
+}
+},
+"control_decisions": {
+"type": "array",
+"minItems": 1,
+"items": {
+"$ref": "#/$defs/control_decision"
+}
+},
+"runtime_control_object": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"description",
+"required_fields",
+"example"
+],
+"properties": {
+"description": {
+"type": "string",
+"minLength": 1
+},
+"required_fields": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"example": {
+"$ref": "#/$defs/runtime_control_example"
+}
+}
+},
+"design_notes": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"compatibility": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"compatible_with",
+"breaking_change"
+],
+"properties": {
+"compatible_with": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"breaking_change": {
+"type": "boolean"
+}
+}
+},
+"summary": {
+"type": "string",
+"minLength": 1
+}
+},
+"$defs": {
+"non_empty_string_array": {
+"type": "array",
+"minItems": 1,
+"items": {
+"type": "string",
+"minLength": 1
+}
+},
+"normalized_range": {
+"type": "object",
+"additionalProperties": false,
+"required": ["minimum", "maximum"],
+"properties": {
+"minimum": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"maximum": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+}
+}
+},
+"threshold": {
+"type": "object",
+"additionalProperties": false,
+"required": ["minimum", "maximum", "meaning"],
+"properties": {
+"minimum": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"maximum": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"meaning": {
+"type": "string",
+"minLength": 1
+}
+}
+},
+"energy_state_definition": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"description",
+"value_type",
+"components",
+"allowed_state_modes",
+"notes"
+],
+"properties": {
+"description": {
+"type": "string",
+"minLength": 1
+},
+"value_type": {
+"type": "string",
+"const": "object"
+},
+"components": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"allowed_state_modes": {
+"type": "array",
+"minItems": 1,
+"items": {
+"type": "string",
+"enum": ["yang", "yin", "balanced"]
+}
+},
+"notes": {
+"$ref": "#/$defs/non_empty_string_array"
+}
+}
+},
+"score_definition": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"description",
+"value_type",
+"range",
+"typical_sources",
+"notes"
+],
+"properties": {
+"description": {
+"type": "string",
+"minLength": 1
+},
+"value_type": {
+"type": "string",
+"const": "number"
+},
+"range": {
+"$ref": "#/$defs/normalized_range"
+},
+"typical_sources": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"notes": {
+"$ref": "#/$defs/non_empty_string_array"
+}
+}
+},
+"control_decision": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"condition",
+"meaning",
+"recommended_route",
+"recommended_action"
+],
+"properties": {
+"condition": {
+"type": "string",
+"minLength": 1
+},
+"meaning": {
+"type": "string",
+"minLength": 1
+},
+"recommended_route": {
+"type": "array",
+"minItems": 1,
+"items": {
+"type": "string",
+"enum": ["wood", "fire", "earth", "metal", "water", "stop"]
+}
+},
+"recommended_action": {
+"type": "string",
+"minLength": 1
+}
+}
+},
+"runtime_control_example": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"energy_state",
+"suppression_score",
+"stop_confidence",
+"recommended_action",
+"next_phase"
+],
+"properties": {
+"energy_state": {
+"$ref": "#/$defs/energy_state_runtime"
+},
+"suppression_score": {
+"$ref": "#/$defs/suppression_score_runtime"
+},
+"stop_confidence": {
+"$ref": "#/$defs/stop_confidence_runtime"
+},
+"recommended_action": {
+"type": "string",
+"minLength": 1
+},
+"next_phase": {
+"type": "string",
+"enum": ["wood", "fire", "earth", "metal", "water", "stop"]
+}
+}
+},
+"energy_state_runtime": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"activation_level",
+"compression_level",
+"routing_cost",
+"active_phase_count",
+"expansion_depth",
+"state_mode"
+],
+"properties": {
+"activation_level": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"compression_level": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"routing_cost": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"active_phase_count": {
+"type": "integer",
+"minimum": 0
+},
+"expansion_depth": {
+"type": "integer",
+"minimum": 0
+},
+"state_mode": {
+"type": "string",
+"enum": ["yang", "yin", "balanced"]
+}
+}
+},
+"suppression_score_runtime": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"value",
+"triggered_by",
+"controller",
+"target"
+],
+"properties": {
+"value": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"triggered_by": {
+"type": "string",
+"minLength": 1
+},
+"controller": {
+"type": "string",
+"enum": ["wood", "fire", "earth", "metal", "water"]
+},
+"target": {
+"type": "string",
+"enum": ["wood", "fire", "earth", "metal", "water"]
+}
+}
+},
+"stop_confidence_runtime": {
+"type": "object",
+"additionalProperties": false,
+"required": [
+"value",
+"evidence",
+"decision"
+],
+"properties": {
+"value": {
+"type": "number",
+"minimum": 0.0,
+"maximum": 1.0
+},
+"evidence": {
+"$ref": "#/$defs/non_empty_string_array"
+},
+"decision": {
+"type": "string",
+"enum": [
+"continue",
+"continue_after_context_check",
+"continue_with_narrower_scope",
+"compress_then_continue",
+"continue_to_memory_then_stop",
+"stop_after_memory_retention",
+"request_review"
+]
+}
+}
+}
+}
+}
