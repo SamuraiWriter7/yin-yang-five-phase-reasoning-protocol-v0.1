@@ -1,0 +1,198 @@
+example_id: energy-state-control.example
+protocol_ref: five-phase-reasoning-protocol-v0.1
+extension_ref: dynamic-control-metrics-v0.2
+version: 0.2.0
+status: draft
+
+description: >
+An example showing how energy_state, suppression_score, and stop_confidence
+can guide routing, braking, compression, and stopping behavior.
+
+input:
+question: "Explain all possible implications of this protocol and compare it with every existing AI architecture."
+task_type: broad_comparison
+desired_output: focused_structural_answer
+
+initial_control_state:
+energy_state:
+activation_level: 0.84
+compression_level: 0.10
+routing_cost: 0.72
+active_phase_count: 4
+expansion_depth: 5
+state_mode: yang
+
+suppression_score:
+value: 0.78
+triggered_by: excessive_branching_detected
+controller: water
+target: fire
+
+stop_confidence:
+value: 0.32
+evidence:
+- "The task is still underdeveloped."
+- "The system has not yet selected the most relevant comparison scope."
+decision: continue_after_context_check
+
+reasoning_cycle:
+
+* phase: wood
+  state: yang
+  function: detect_scope_risk
+  output:
+  core_direction: "The user is asking for a broad comparison, but full coverage would be excessive."
+  scope_risk: high
+  next_phase: earth
+
+* phase: earth
+  state: balanced
+  function: stabilize_scope
+  input_metrics:
+  energy_state:
+  activation_level: 0.84
+  routing_cost: 0.72
+  suppression_score:
+  value: 0.78
+  stop_confidence:
+  value: 0.32
+  output:
+  relevant_scope:
+  - multi-agent-systems
+  - adaptive-reasoning
+  - early-stopping
+  - memory-aware-agent-routing
+  discarded_scope:
+  - every_existing_ai_architecture
+  - distant_hardware_speculation
+  - exhaustive_historical_comparison
+  next_phase: metal
+
+* phase: metal
+  state: yin
+  function: suppress_excessive_scope
+  input_metrics:
+  suppression_score:
+  value: 0.86
+  triggered_by: excessive_branching_detected
+  brake_decision:
+  triggered: true
+  severity: high
+  action: prune_comparison_scope
+  output:
+  compressed_scope: >
+  Compare the protocol only with relevant control-layer concepts:
+  multi-agent orchestration, adaptive reasoning, early stopping,
+  and memory-aware routing.
+  updated_metrics:
+  energy_state:
+  activation_level: 0.52
+  compression_level: 0.61
+  routing_cost: 0.38
+  active_phase_count: 2
+  expansion_depth: 2
+  state_mode: yin
+  suppression_score:
+  value: 0.44
+  triggered_by: scope_reduced
+  controller: metal
+  target: fire
+  stop_confidence:
+  value: 0.68
+  evidence:
+  - "The scope has been narrowed."
+  - "The answer still needs a concise comparison."
+  decision: compress_then_continue
+  next_phase: fire
+
+* phase: fire
+  state: yang
+  function: expand_minimal_comparison
+  output:
+  focused_comparison: >
+  The protocol differs from ordinary multi-agent orchestration by
+  adding explicit phase routing, brake behavior, and memory return.
+  It differs from simple early stopping by treating stopping as part
+  of a broader reasoning cycle.
+  next_phase: earth
+
+* phase: earth
+  state: balanced
+  function: check_sufficiency
+  output:
+  sufficiency_assessment: "The answer now fits the user's likely need without exhaustive expansion."
+  next_phase: metal
+
+* phase: metal
+  state: yin
+  function: evaluate_stop_confidence
+  input_metrics:
+  energy_state:
+  activation_level: 0.39
+  compression_level: 0.72
+  routing_cost: 0.24
+  active_phase_count: 2
+  expansion_depth: 1
+  state_mode: yin
+  suppression_score:
+  value: 0.31
+  triggered_by: residual_redundancy
+  controller: metal
+  target: fire
+  stop_confidence:
+  value: 0.88
+  evidence:
+  - "The scope has been narrowed."
+  - "The core comparison is sufficient."
+  - "Further expansion would reduce clarity."
+  decision: stop_after_memory_retention
+  output:
+  stop_or_continue_decision: stop_after_memory_retention
+  next_phase: water
+
+* phase: water
+  state: yin
+  function: retain_essence
+  output:
+  retained_essence: >
+  Dynamic control metrics help the system decide when to expand,
+  suppress, compress, and stop.
+  reusable_pattern: >
+  High suppression with low stop confidence should reroute and prune.
+  High stop confidence should route to Water and stop.
+  final_stop_decision: true
+
+final_output:
+summary: >
+The v0.2 dynamic control metrics make the protocol more precise.
+energy_state represents the current activation profile, suppression_score
+indicates whether reasoning should be pruned or rerouted, and
+stop_confidence indicates whether the answer is sufficient enough to stop.
+
+concise_answer: >
+energy_state controls activation awareness, suppression_score controls
+braking pressure, and stop_confidence controls whether reasoning should
+continue or end after memory retention.
+
+memory_trace:
+retain:
+- "energy_state describes activation intensity at the control layer."
+- "suppression_score indicates the need for pruning, compression, or rerouting."
+- "stop_confidence supports Metal-to-Water-to-Stop decisions."
+- "High suppression does not always mean stopping; it may mean rerouting."
+- "High stop_confidence supports final compression and memory retention."
+
+avoid_retaining:
+- "Discarded exhaustive comparison branches."
+- "Unverified hardware-level energy claims."
+- "Speculative claims about measured efficiency."
+
+validation_notes:
+expected_metrics:
+- energy_state
+- suppression_score
+- stop_confidence
+
+expected_result: >
+The example demonstrates how normalized control metrics can guide
+reasoning scope reduction, brake activation, and final stopping.
