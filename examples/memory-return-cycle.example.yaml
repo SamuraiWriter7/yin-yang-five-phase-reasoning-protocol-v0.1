@@ -1,4 +1,3 @@
-```yaml
 example_id: memory-return-cycle.example
 protocol_ref: five-phase-reasoning-protocol-v0.1
 version: 0.1.0
@@ -240,4 +239,3 @@ validation_notes:
   expected_result: >
     A recursive reasoning example showing how retained essence becomes
     the seed for a new reasoning cycle without preserving unnecessary noise.
-```
