@@ -8,7 +8,7 @@ from typing import Any
 import yaml
 from jsonschema import Draft202012Validator
 
-ROOT = Path(**file**).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[1]
 
 V01_SPEC_PATH = ROOT / "spec" / "five-phase-reasoning-protocol-v0.1.yaml"
 V01_SCHEMA_PATH = ROOT / "schemas" / "five-phase-reasoning.schema.json"
