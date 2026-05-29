@@ -1,0 +1,230 @@
+spec_id: dynamic-control-metrics-v0.2
+name: Dynamic Control Metrics for Yin-Yang Five-Phase Reasoning
+version: 0.2.0
+status: draft
+protocol_ref: five-phase-reasoning-protocol-v0.1
+
+description: >
+A v0.2 extension module that adds normalized control metrics to the
+Yin-Yang Five-Phase Reasoning Protocol, including energy_state,
+suppression_score, and stop_confidence.
+
+purpose:
+
+* define normalized runtime control metrics
+* support more precise phase activation decisions
+* support measurable stopping behavior at the control layer
+* support suppression and brake decisions
+* support energy-aware routing without claiming hardware-level energy measurement
+* prepare the protocol for future evaluation and implementation profiles
+
+non_goals:
+
+* claim measured hardware-level energy reduction
+* replace benchmark-based evaluation
+* define a complete inference engine
+* define physical electrical current behavior
+* guarantee safety, truth, or alignment
+* force every implementation to use the same thresholds
+
+core_principle: >
+Dynamic reasoning control requires not only phases and routes, but also
+normalized signals that indicate activation intensity, suppression need,
+and stopping confidence.
+
+metric_model:
+description: >
+The v0.2 metric model introduces normalized control values in the range
+from 0.0 to 1.0. These values are control-layer indicators, not direct
+hardware measurements.
+
+normalized_range:
+minimum: 0.0
+maximum: 1.0
+
+interpretation:
+low: "Weak signal or low need for intervention."
+medium: "Moderate signal requiring monitoring or mild routing adjustment."
+high: "Strong signal requiring routing, compression, braking, or stopping."
+
+metric_definitions:
+energy_state:
+description: >
+A normalized control profile representing the current reasoning
+activation state. It estimates how active, expansive, compressed,
+or costly the current reasoning path is at the control layer.
+value_type: object
+components:
+- activation_level
+- compression_level
+- routing_cost
+- active_phase_count
+- expansion_depth
+- state_mode
+allowed_state_modes:
+- yang
+- yin
+- balanced
+notes:
+- "energy_state is not a hardware wattage measurement."
+- "It represents control-layer activation intensity."
+- "High activation may be appropriate for difficult tasks."
+- "Low activation may be appropriate for concise or completed tasks."
+
+suppression_score:
+description: >
+A normalized value representing how strongly the system should suppress,
+prune, compress, reroute, or stop part of the current reasoning process.
+value_type: number
+range:
+minimum: 0.0
+maximum: 1.0
+typical_sources:
+- excessive_branching_detected
+- redundancy_detected
+- reasoning_overheat_detected
+- low_confidence_detected
+- context_drift_detected
+- memory_overload_detected
+notes:
+- "A high suppression_score does not always mean final stopping."
+- "It may trigger pruning, compression, rerouting, or memory filtering."
+- "The recommended action depends on phase context."
+
+stop_confidence:
+description: >
+A normalized value representing confidence that the current reasoning
+cycle is sufficient and should stop after any required memory retention.
+value_type: number
+range:
+minimum: 0.0
+maximum: 1.0
+typical_sources:
+- answer_sufficiency
+- low_remaining_uncertainty
+- low_branch_value
+- user_request_satisfied
+- completion_detected
+- redundancy_after_expansion
+notes:
+- "High stop_confidence supports Metal-to-Water-to-Stop routing."
+- "Low stop_confidence may require Fire expansion or Earth context checking."
+- "Stop confidence should be interpreted together with suppression_score."
+
+thresholds:
+low:
+minimum: 0.0
+maximum: 0.30
+meaning: "Low signal. No major routing change required."
+
+medium:
+minimum: 0.31
+maximum: 0.70
+meaning: "Moderate signal. Monitor, compress lightly, or route to context check."
+
+high:
+minimum: 0.71
+maximum: 1.0
+meaning: "Strong signal. Trigger pruning, suppression, memory filtering, or stopping."
+
+control_decisions:
+
+* condition: high_suppression_low_stop_confidence
+  meaning: >
+  The current reasoning path should be suppressed or rerouted, but the
+  answer is not yet sufficient.
+  recommended_route:
+
+  * earth
+  * metal
+  * fire
+    recommended_action: "prune_branch_then_restore_minimal_needed_detail"
+
+* condition: high_suppression_high_stop_confidence
+  meaning: >
+  Further reasoning is likely unnecessary and may reduce clarity.
+  recommended_route:
+
+  * metal
+  * water
+  * stop
+    recommended_action: "compress_retain_essence_and_stop"
+
+* condition: low_suppression_low_stop_confidence
+  meaning: >
+  The reasoning is not excessive, but the answer is not yet complete.
+  recommended_route:
+
+  * fire
+  * earth
+    recommended_action: "continue_expansion_with_context_check"
+
+* condition: low_suppression_high_stop_confidence
+  meaning: >
+  The answer is sufficient and does not require strong pruning.
+  recommended_route:
+
+  * water
+  * stop
+    recommended_action: "retain_minimal_trace_and_stop"
+
+runtime_control_object:
+description: >
+A minimal runtime object for representing v0.2 dynamic control metrics.
+
+required_fields:
+- energy_state
+- suppression_score
+- stop_confidence
+- recommended_action
+- next_phase
+
+example:
+energy_state:
+activation_level: 0.76
+compression_level: 0.22
+routing_cost: 0.61
+active_phase_count: 3
+expansion_depth: 4
+state_mode: yang
+
+```
+suppression_score:
+  value: 0.82
+  triggered_by: excessive_branching_detected
+  controller: water
+  target: fire
+
+stop_confidence:
+  value: 0.44
+  evidence:
+    - "Several branches remain unresolved."
+    - "The answer has not yet been compressed."
+  decision: continue_after_context_check
+
+recommended_action: "route_to_earth_then_metal"
+next_phase: earth
+```
+
+design_notes:
+
+* "energy_state should guide activation, not replace reasoning quality checks."
+* "suppression_score should trigger control behavior, not automatic deletion."
+* "stop_confidence should be interpreted with user intent and task sufficiency."
+* "High stop_confidence should normally route to Water before final stopping."
+* "Memory retention should occur only after compression when possible."
+
+compatibility:
+compatible_with:
+- five-phase-reasoning-protocol-v0.1
+- multi-wing-architecture
+- energy-aware-reasoning-notes
+- controlling-cycle-brake
+
+breaking_change: false
+
+summary: >
+v0.2.0 adds dynamic control metrics to make the protocol more precise.
+energy_state represents activation intensity, suppression_score represents
+the need for pruning or braking, and stop_confidence represents whether the
+reasoning cycle is ready to end.
