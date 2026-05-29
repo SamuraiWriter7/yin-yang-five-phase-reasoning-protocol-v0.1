@@ -1,0 +1,175 @@
+```yaml
+example_id: basic-reasoning-cycle.example
+protocol_ref: five-phase-reasoning-protocol-v0.1
+version: 0.1.0
+status: draft
+
+description: >
+  A minimal example of a full Yin-Yang Five-Phase reasoning cycle.
+  This example demonstrates how a question moves through Wood, Fire,
+  Earth, Metal, and Water phases before producing a final response.
+
+input:
+  question: "How should the Yin-Yang Five-Phase Reasoning Protocol be introduced?"
+  task_type: protocol_introduction
+  desired_output: concise_explanation
+
+initial_state:
+  mode: yang
+  active_agent: wood
+  reason: "A new direction must be detected from the user's question."
+
+reasoning_cycle:
+  - phase: wood
+    state: yang
+    role: intuition
+    function: detect_core_direction
+    input: "How should the protocol be introduced?"
+    operation:
+      - detect_core_question
+      - identify_primary_direction
+      - form_initial_hypothesis
+    output:
+      core_direction: "Introduce the protocol as a dynamic reasoning control model."
+      initial_hypothesis: >
+        The protocol should be explained as a system for alternating between
+        expansion and compression in AI reasoning.
+      next_phase: fire
+    transition:
+      to: fire
+      reason: "The initial direction is clear and needs expansion."
+
+  - phase: fire
+    state: yang
+    role: expansion
+    function: develop_reasoning
+    input: "Introduce the protocol as a dynamic reasoning control model."
+    operation:
+      - expand_hypothesis
+      - generate_explanation
+      - develop_logical_path
+    output:
+      expanded_reasoning: >
+        The protocol uses Yin-Yang as a state model and Five-Phase agents
+        as functional reasoning roles. Yang supports activation and generation.
+        Yin supports compression, restraint, and stopping.
+      next_phase: earth
+    transition:
+      to: earth
+      reason: "The explanation must be integrated with the broader protocol context."
+
+  - phase: earth
+    state: balanced
+    role: context
+    function: integrate_context
+    input: >
+      The protocol uses Yin-Yang as a state model and Five-Phase agents
+      as functional reasoning roles.
+    operation:
+      - align_with_context
+      - check_coherence
+      - connect_to_multi_wing_architecture
+      - stabilize_meaning
+    output:
+      contextualized_reasoning: >
+        This protocol complements Multi-Wing architecture by providing
+        a control model for when reasoning should expand, compress,
+        stop, or return to memory.
+      coherence_assessment: "The concept is coherent if presented as a structural control protocol, not as a hardware-level energy claim."
+      next_phase: metal
+    transition:
+      to: metal
+      reason: "The explanation needs critique, pruning, and claim control."
+
+  - phase: metal
+    state: yin
+    role: critique
+    function: prune_and_stop
+    input: >
+      This protocol complements Multi-Wing architecture by providing
+      a control model for when reasoning should expand, compress,
+      stop, or return to memory.
+    operation:
+      - remove_overstatement
+      - reduce_redundancy
+      - detect_weak_claims
+      - compress_output
+      - evaluate_stopping_condition
+    brake_check:
+      triggered: true
+      triggered_by: "unsupported_energy_reduction_claim_risk"
+      action: "reduce_claim_strength"
+    output:
+      critique_notes:
+        - "Avoid claiming measured energy reduction."
+        - "Describe energy awareness as a reasoning-control model."
+        - "Keep the explanation structural and implementation-oriented."
+      compressed_output: >
+        The protocol defines a phase-based reasoning control model that
+        alternates between activation and restraint, using five functional
+        agents to route, refine, and stop reasoning.
+      stop_or_continue_decision: continue_to_memory
+      next_phase: water
+    transition:
+      to: water
+      reason: "The refined essence should be retained."
+
+  - phase: water
+    state: yin
+    role: memory
+    function: retain_essence
+    input: >
+      The protocol defines a phase-based reasoning control model that
+      alternates between activation and restraint, using five functional
+      agents to route, refine, and stop reasoning.
+    operation:
+      - extract_reusable_lesson
+      - preserve_minimal_trace
+      - prepare_next_cycle_seed
+    output:
+      retained_essence: "Reasoning should breathe, not endlessly expand."
+      reusable_pattern: "Wood detects, Fire expands, Earth integrates, Metal prunes, Water retains."
+      next_cycle_seed: "Explain the protocol through state transitions and agent routing."
+      next_phase: final_output
+
+final_output:
+  summary: >
+    The Yin-Yang Five-Phase Reasoning Protocol is a dynamic reasoning control
+    model. It treats reasoning as a cycle of expansion and compression rather
+    than continuous generation. Wood detects direction, Fire expands, Earth
+    integrates, Metal critiques and prunes, and Water retains the essential
+    pattern for future reasoning cycles.
+
+  short_definition: >
+    Reasoning should breathe: expand when needed, compress when wiser,
+    and stop when the answer is sufficient.
+
+memory_trace:
+  retain:
+    - "Reasoning should breathe, not endlessly expand."
+    - "Five phases can be used as functional reasoning roles."
+    - "Energy awareness should be framed as routing and activation control, not as a measured hardware claim."
+
+  avoid_retaining:
+    - "Unsupported claims of actual energy reduction."
+    - "Metaphysical claims about AI consciousness."
+    - "Overextended philosophical explanation."
+
+validation_notes:
+  expected_cycle_order:
+    - wood
+    - fire
+    - earth
+    - metal
+    - water
+
+  expected_state_pattern:
+    - yang
+    - yang
+    - balanced
+    - yin
+    - yin
+
+  expected_result: >
+    A concise and structurally safe explanation of the protocol.
+```
