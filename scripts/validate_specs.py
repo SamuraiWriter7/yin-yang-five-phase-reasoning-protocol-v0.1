@@ -70,8 +70,8 @@ EXPECTED_V02_METRICS = {
 }
 
 def fail(message: str) -> None:
-print(f"ERROR: {message}", file=sys.stderr)
-raise SystemExit(1)
+    print(f"ERROR: {message}", file=sys.stderr)
+    raise SystemExit(1)
 
 def load_yaml(path: Path) -> Any:
 if not path.exists():
