@@ -1,0 +1,589 @@
+```yaml
+spec_id: five-phase-reasoning-protocol-v0.1
+name: Yin-Yang Five-Phase Reasoning Protocol
+version: 0.1.0
+status: draft
+schema_version: 0.1.0
+
+description: >
+  A minimal protocol for dynamic, energy-aware, multi-agent reasoning
+  based on Yin-Yang state transitions and Five-Phase routing.
+
+purpose:
+  - define a phase-based reasoning control model
+  - support selective inference
+  - support role-distributed reasoning
+  - support critique-driven compression
+  - support memory-aware recurrence
+  - reduce unnecessary reasoning expansion
+  - prevent runaway generation through explicit brake conditions
+
+non_goals:
+  - replace Transformer architectures directly
+  - prove measured energy savings
+  - define a complete hardware implementation
+  - claim metaphysical properties of AI
+  - treat Yin-Yang or Five-Phase theory as scientific law
+  - automate all reasoning decisions without human or system review
+
+core_principle: >
+  Reasoning should not always expand. It should alternate between
+  activation and restraint, expansion and compression, generation and
+  stopping.
+
+minimal_definition: >
+  Yin-Yang Five-Phase Reasoning Protocol is a dynamic reasoning architecture
+  that replaces continuous model activation with phase-based, role-distributed,
+  self-regulating inference.
+
+short_definition: >
+  Reasoning should breathe.
+
+yin_yang_state_model:
+  description: >
+    The protocol defines reasoning as an oscillation between Yang activation
+    and Yin restraint.
+
+  states:
+    yang:
+      label: Yang
+      polarity: positive
+      symbolic_value: "+1"
+      function: activation
+      description: >
+        Yang represents active reasoning, expansion, exploration,
+        generation, and broad attention.
+      typical_operations:
+        - hypothesis_generation
+        - token_expansion
+        - broad_attention
+        - exploration
+        - creative_divergence
+        - active_computation
+      risks_when_uncontrolled:
+        - excessive_verbosity
+        - unnecessary_branching
+        - hallucination_risk
+        - redundant_computation
+        - runaway_generation
+
+    yin:
+      label: Yin
+      polarity: negative
+      symbolic_value: "-1"
+      function: restraint
+      description: >
+        Yin represents compression, pruning, silence, memory consolidation,
+        stopping, and reduced activation.
+      typical_operations:
+        - pruning
+        - summarization
+        - local_attention
+        - stopping
+        - memory_consolidation
+        - reduced_activation
+      risks_when_excessive:
+        - premature_stopping
+        - under_exploration
+        - excessive_compression
+        - loss_of_creativity
+        - insufficient_explanation
+
+five_phase_agents:
+  description: >
+    The protocol defines five functional reasoning agents. These agents may
+    be implemented as separate models, modules, prompts, policies, routing
+    states, specialized agents, or internal reasoning roles.
+
+  wood:
+    label: Wood
+    role: intuition
+    primary_function: detect_direction
+    yin_yang_bias: yang
+    description: >
+      Wood represents the beginning of direction. It detects the core question,
+      identifies possible reasoning paths, and senses what is trying to emerge.
+    asks: "What is trying to emerge?"
+    operations:
+      - detect_core_question
+      - form_initial_hypothesis
+      - identify_reasoning_paths
+      - sense_direction_of_inquiry
+    outputs:
+      - core_direction
+      - initial_hypothesis
+      - possible_paths
+      - inquiry_vector
+    failure_modes:
+      - vague_direction
+      - excessive_speculation
+      - unfocused_branching
+
+  fire:
+    label: Fire
+    role: expansion
+    primary_function: develop_reasoning
+    yin_yang_bias: yang
+    description: >
+      Fire represents active development. It expands hypotheses, generates
+      explanation, explores implications, and produces structured output.
+    asks: "How can this be expressed or developed?"
+    operations:
+      - expand_hypothesis
+      - generate_explanation
+      - produce_structured_output
+      - explore_implications
+      - develop_logical_paths
+    outputs:
+      - expanded_reasoning
+      - draft_output
+      - logical_development
+      - generated_content
+    failure_modes:
+      - over_expansion
+      - excessive_length
+      - reasoning_overheat
+      - unsupported_claims
+
+  earth:
+    label: Earth
+    role: context
+    primary_function: integrate_context
+    yin_yang_bias: balanced
+    description: >
+      Earth represents integration. It aligns reasoning with context, checks
+      coherence, absorbs contradiction, and stabilizes meaning.
+    asks: "Does this fit the whole context?"
+    operations:
+      - align_with_context
+      - check_coherence
+      - absorb_contradiction
+      - connect_to_broader_knowledge
+      - stabilize_meaning
+    outputs:
+      - contextualized_reasoning
+      - coherence_assessment
+      - contradiction_notes
+      - stabilized_output
+    failure_modes:
+      - over_contextualization
+      - ambiguity_absorption_without_resolution
+      - excessive_generalization
+
+  metal:
+    label: Metal
+    role: critique
+    primary_function: prune_and_stop
+    yin_yang_bias: yin
+    description: >
+      Metal represents pruning and refinement. It removes noise, detects weak
+      claims, compresses output, and decides whether reasoning should stop.
+    asks: "What should be cut, corrected, or stopped?"
+    operations:
+      - remove_noise
+      - reduce_redundancy
+      - detect_weak_claims
+      - compress_output
+      - enforce_precision
+      - evaluate_stopping_condition
+    outputs:
+      - critique_notes
+      - compressed_output
+      - removed_elements
+      - stop_or_continue_decision
+    failure_modes:
+      - excessive_pruning
+      - loss_of_useful_detail
+      - premature_rejection
+      - over_correction
+
+  water:
+    label: Water
+    role: memory
+    primary_function: retain_essence
+    yin_yang_bias: yin
+    description: >
+      Water represents retention and return. It stores essential patterns,
+      extracts reusable lessons, preserves minimal traces, and supports future
+      reasoning cycles.
+    asks: "What should remain after the reasoning ends?"
+    operations:
+      - store_essential_patterns
+      - extract_reusable_lessons
+      - preserve_minimal_traces
+      - support_future_cycles
+      - return_refined_knowledge_to_wood
+    outputs:
+      - retained_essence
+      - reusable_pattern
+      - memory_trace
+      - next_cycle_seed
+    failure_modes:
+      - excessive_retention
+      - stale_memory
+      - noise_preservation
+      - insufficient_return_signal
+
+generating_cycle:
+  description: >
+    The generating cycle defines constructive reasoning flow.
+  sequence:
+    - wood
+    - fire
+    - earth
+    - metal
+    - water
+    - wood
+  transitions:
+    - from: wood
+      to: fire
+      meaning: intuition_to_expansion
+      condition: core_direction_detected
+
+    - from: fire
+      to: earth
+      meaning: expansion_to_context
+      condition: reasoning_requires_integration
+
+    - from: earth
+      to: metal
+      meaning: context_to_critique
+      condition: output_requires_refinement
+
+    - from: metal
+      to: water
+      meaning: critique_to_memory
+      condition: essence_ready_for_retention
+
+    - from: water
+      to: wood
+      meaning: memory_to_new_direction
+      condition: next_cycle_required
+
+controlling_cycle:
+  description: >
+    The controlling cycle defines self-regulation and brake behavior.
+  controls:
+    - controller: metal
+      target: wood
+      function: stop_excessive_intuition
+      trigger_conditions:
+        - excessive_speculation
+        - unfocused_branching
+        - weak_initial_direction
+      possible_actions:
+        - narrow_question
+        - cut_branch
+        - request_clarification
+        - stop_path
+
+    - controller: water
+      target: fire
+      function: cool_excessive_expansion
+      trigger_conditions:
+        - excessive_length
+        - reasoning_overheat
+        - repeated_generation
+        - low_signal_expansion
+      possible_actions:
+        - summarize
+        - pause_generation
+        - compress_output
+        - return_to_core_claim
+
+    - controller: wood
+      target: earth
+      function: redirect_stagnant_context
+      trigger_conditions:
+        - over_contextualization
+        - loss_of_direction
+        - excessive_background
+      possible_actions:
+        - restate_core_question
+        - choose_new_path
+        - define_next_direction
+
+    - controller: fire
+      target: metal
+      function: challenge_excessive_pruning
+      trigger_conditions:
+        - premature_stopping
+        - loss_of_useful_detail
+        - excessive_compression
+      possible_actions:
+        - restore_needed_detail
+        - expand_minimally
+        - justify_retained_content
+
+    - controller: earth
+      target: water
+      function: stabilize_memory_retention
+      trigger_conditions:
+        - excessive_retention
+        - noise_preservation
+        - stale_memory_risk
+      possible_actions:
+        - filter_memory
+        - retain_only_essence
+        - remove_nonessential_trace
+
+protocol_layers:
+  state_layer:
+    description: >
+      Defines whether the reasoning system is in a Yang or Yin state.
+    required_fields:
+      - mode
+      - function
+    allowed_modes:
+      - yang
+      - yin
+      - balanced
+
+  phase_layer:
+    description: >
+      Defines which Five-Phase agent or reasoning role is currently active.
+    required_fields:
+      - active_agent
+      - role
+    allowed_agents:
+      - wood
+      - fire
+      - earth
+      - metal
+      - water
+
+  routing_layer:
+    description: >
+      Defines transition from one phase to another.
+    required_fields:
+      - from
+      - to
+      - reason
+
+  brake_layer:
+    description: >
+      Defines when reasoning should slow, compress, or stop.
+    required_fields:
+      - triggered_by
+      - action
+
+  memory_layer:
+    description: >
+      Defines what should be retained after the reasoning cycle.
+    required_fields:
+      - retain
+
+brake_conditions:
+  description: >
+    Brake conditions define situations where the system should reduce
+    activation, compress output, change phase, or stop reasoning.
+
+  conditions:
+    redundancy_detected:
+      description: Output repeats prior content without adding value.
+      preferred_agent: metal
+      preferred_state: yin
+      actions:
+        - compress_output
+        - remove_duplicate_content
+        - stop_if_sufficient
+
+    low_confidence_detected:
+      description: The system lacks enough support for a claim.
+      preferred_agent: earth
+      preferred_state: balanced
+      actions:
+        - mark_uncertainty
+        - reduce_claim_strength
+        - request_evidence
+        - avoid_overstatement
+
+    excessive_branching_detected:
+      description: Too many reasoning paths are being explored at once.
+      preferred_agent: metal
+      preferred_state: yin
+      actions:
+        - select_primary_path
+        - cut_secondary_paths
+        - return_to_core_question
+
+    reasoning_overheat_detected:
+      description: Expansion continues beyond the useful scope of the task.
+      preferred_agent: water
+      preferred_state: yin
+      actions:
+        - pause_generation
+        - summarize_current_state
+        - return_to_essence
+
+    context_drift_detected:
+      description: Reasoning has moved away from the user's original request.
+      preferred_agent: earth
+      preferred_state: balanced
+      actions:
+        - restore_context
+        - restate_task
+        - reroute_to_relevant_phase
+
+    completion_detected:
+      description: The answer is sufficient for the current task.
+      preferred_agent: metal
+      preferred_state: yin
+      actions:
+        - stop_generation
+        - provide_final_output
+        - retain_core_trace
+
+memory_policy:
+  description: >
+    Memory should preserve essence, not noise.
+
+  retain:
+    - core_claim
+    - key_decision
+    - unresolved_question
+    - next_action
+    - reusable_pattern
+    - important_constraint
+
+  avoid_retaining:
+    - redundant_detail
+    - unsupported_speculation
+    - temporary_noise
+    - discarded_branch
+    - excessive_context
+
+  retention_rule: >
+    Retain only what improves future reasoning cycles.
+
+routing_policy:
+  description: >
+    Routing determines which phase should become active next.
+
+  default_route:
+    - wood
+    - fire
+    - earth
+    - metal
+    - water
+
+  conditional_routes:
+    - condition: question_is_unclear
+      route:
+        - wood
+        - earth
+        - metal
+      expected_result: clarified_question_or_minimal_answer
+
+    - condition: output_is_too_long
+      route:
+        - metal
+        - water
+      expected_result: compressed_output_and_retained_essence
+
+    - condition: claim_requires_context
+      route:
+        - earth
+        - metal
+      expected_result: contextualized_and_qualified_claim
+
+    - condition: reasoning_is_complete
+      route:
+        - metal
+        - water
+      expected_result: final_output_and_memory_trace
+
+    - condition: new_direction_required
+      route:
+        - water
+        - wood
+      expected_result: next_cycle_seed
+
+energy_awareness_model:
+  description: >
+    Energy awareness is represented as a reasoning-control model, not as a
+    measured hardware-level energy reduction claim.
+
+  control_targets:
+    - reduce_unnecessary_activation
+    - reduce_unnecessary_branching
+    - reduce_redundant_generation
+    - reduce_excessive_context_expansion
+    - increase_stopping_accuracy
+    - increase_compression_quality
+
+  indicators:
+    active_phase_count:
+      description: Number of simultaneously active reasoning phases.
+      preferred_direction: lower_when_possible
+
+    expansion_depth:
+      description: Degree of reasoning expansion before compression.
+      preferred_direction: task_dependent
+
+    redundancy_ratio:
+      description: Estimated repetition or low-value continuation.
+      preferred_direction: lower
+
+    stop_confidence:
+      description: Confidence that the reasoning cycle is complete.
+      preferred_direction: higher
+
+    retained_essence_ratio:
+      description: Ratio of useful retained content to total generated content.
+      preferred_direction: higher
+
+example_reasoning_cycle:
+  question: "How should this protocol be introduced?"
+
+  cycle:
+    wood:
+      function: detect_core_direction
+      output: "Introduce it as an energy-aware reasoning protocol."
+
+    fire:
+      function: expand_explanation
+      output: "Explain Yin-Yang as state transition and Five-Phase as agent routing."
+
+    earth:
+      function: context_integration
+      output: "Connect the protocol to Multi-Wing architecture and AI inference control."
+
+    metal:
+      function: critique_and_compression
+      output: "Avoid unsupported claims about actual energy reduction."
+
+    water:
+      function: memory_and_return
+      output: "Retain the principle: reasoning should breathe, not endlessly expand."
+
+validation_notes:
+  required_top_level_fields:
+    - spec_id
+    - name
+    - version
+    - status
+    - description
+    - purpose
+    - yin_yang_state_model
+    - five_phase_agents
+    - generating_cycle
+    - controlling_cycle
+    - protocol_layers
+    - brake_conditions
+    - memory_policy
+    - routing_policy
+
+  recommended_checks:
+    - all_generating_cycle_agents_exist
+    - all_controlling_cycle_agents_exist
+    - all_routes_reference_valid_agents
+    - all_brake_actions_are_defined
+    - memory_policy_contains_retain_rules
+    - non_goals_are_explicit
+    - energy_awareness_is_not_claimed_as_measured_result
+
+license_note: >
+  This specification is intended as an open structural protocol. Add the
+  repository license separately in LICENSE.
+```
